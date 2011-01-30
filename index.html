@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>fs.js demo</title>
+    <script src="fs.js"></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<section>
+    <ul>
+        <li><button onclick="test1();">Run</button><p id="test1"></p></li>
+        <li><button onclick="test2();">Run</button><p id="test2"></p></li>
+        <li><button onclick="test3();">Run</button><p id="test3"></p></li>
+    </ul>
+</section>
+<script>
+function test1()
+{
+    fs.readFileAsDataURL('test.zip',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test1').innerText="Failed with err:"+err;
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test1').innerText="Done:"+data;
+        }
+    });
+}
+function test2()
+{
+    fs.readFileAsText('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test2').innerText="Failed with err:"+err;
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test2').innerText="Done:"+data;
+        }
+    });
+}
+function test3()
+{
+    fs.readFileAsText('fake.file',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test3').innerText="Failed with err:"+err;
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test3').innerText="Done:"+data;
+        }
+    });
+}
+</script>
+</body>
+</html>
