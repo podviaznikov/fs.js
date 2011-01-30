@@ -1,0 +1,9 @@
+fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/).
+I found that interface is too complicated for regular tasks.
+
+fs.js - is the library file itself.
+To test it's functionality you can checkout whole project. Install it as Google chrome packaged application.
+After application create just put test files from test_data folder into the file system folder for your application.
+
+
+More detailed information will be provided later.
