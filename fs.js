@@ -111,7 +111,6 @@ var fs = Object.create({},
                     {
                         callback(error);
                     });
-
                 }
             });
         }
@@ -140,7 +139,36 @@ var fs = Object.create({},
                 }
             });
         }
-     }
+     },
+    writeText:
+    {
+        value:function(fileName,text,callback)
+        {
+            this.createFile(fileName,function(err,fileEntry)
+            {
+                fileEntry.createWriter(function(fileWriter)
+                {
+                   fileWriter.onwriteend = function(e)
+                   {
+                       callback(undefined);
+                   };
+
+                   fileWriter.onerror = function(e)
+                   {
+                       callback(e);
+                   };
+                   var blobBuilder = new BlobBuilder('plain/text');
+                   blobBuilder.append(text);
+                   fileWriter.write(blobBuilder.getBlob('plain/text'));
+
+                },
+                function(err)
+                {
+                    callback(err);    
+                });
+            });
+        }
+    }
 });
 
 /** Standard interface extensions */
