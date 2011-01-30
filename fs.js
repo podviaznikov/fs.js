@@ -160,7 +160,6 @@ Object.defineProperty(FileError.prototype,
               msg = 'Unknown Error';
               break;
         };
-
         return msg;
     }
 });

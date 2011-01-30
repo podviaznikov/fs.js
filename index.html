@@ -8,9 +8,12 @@
 <body>
 <section>
     <ul>
-        <li><button onclick="test1();">Run</button><p id="test1"></p></li>
-        <li><button onclick="test2();">Run</button><p id="test2"></p></li>
-        <li><button onclick="test3();">Run</button><p id="test3"></p></li>
+        <li><p class="test-name">Read file as dataURL:</p><button onclick="test1();">Run</button><p id="test1"></p></li>
+        <li><p class="test-name">Read file as text:</p><button onclick="test2();">Run</button><p id="test2"></p></li>
+        <li><p class="test-name">Read file as binary string:</p><button onclick="test3();">Run</button><p id="test3"></p></li>
+        <li><p class="test-name">Read file as buffer array:</p><button onclick="test4();">Run</button><p id="test4"></p></li>
+        <li><p class="test-name">Read file that doesn't exists:</p><button onclick="test5();">Run</button><p id="test5"></p></li>
+
     </ul>
 </section>
 <script>
@@ -21,12 +24,12 @@ function test1()
         if(err)
         {
             console.log(err);
-            document.getElementById('test1').innerText="Failed with err:"+err;
+            document.getElementById('test1').innerText="Failed with err: "+err.message();
         }
         else
         {
             console.log(data);
-            document.getElementById('test1').innerText="Done:"+data;
+            document.getElementById('test1').innerText="Done: "+data;
         }
     });
 }
@@ -37,28 +40,60 @@ function test2()
         if(err)
         {
             console.log(err);
-            document.getElementById('test2').innerText="Failed with err:"+err;
+            document.getElementById('test2').innerText="Failed with err: "+err.message();
         }
         else
         {
             console.log(data);
-            document.getElementById('test2').innerText="Done:"+data;
+            document.getElementById('test2').innerText="Done: "+data;
         }
     });
 }
 function test3()
+{
+    fs.readFileAsBinaryString('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test3').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test3').innerText="Done: "+data;
+        }
+    });
+}
+function test4()
+{
+    fs.readFileAsArrayBuffer('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test4').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test4').innerText="Done: "+data;
+        }
+    });
+}
+function test5()
 {
     fs.readFileAsText('fake.file',function(err,data)
     {
         if(err)
         {
             console.log(err);
-            document.getElementById('test3').innerText="Failed with err:"+err;
+            document.getElementById('test5').innerText="Failed with err: "+err.message();
         }
         else
         {
             console.log(data);
-            document.getElementById('test3').innerText="Done:"+data;
+            document.getElementById('test5').innerText="Done: "+data;
         }
     });
 }
