@@ -12,6 +12,7 @@ var fs = Object.create({},
         value:5*1020*1024*1024,
         writable:true
     },
+    /** operations for reading files*/
     readFileAsDataURL:
     {
         value:function(fileName,callback)
@@ -52,50 +53,94 @@ var fs = Object.create({},
             });
         }
     },
+    _getNativeFS:
+    {
+        value:function(callback)
+        {
+            window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+            {
+                callback(undefined,fs);
+            },
+            /* error callback*/
+            function(err)
+            {
+                callback(err);
+            });
+        }
+    },
     _getFileReader:
     {
         value:function(fileName,callback,parentCallback)
         {
-            window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+            this._getNativeFS(function(err,fs)
             {
-                fs.root.getFile(fileName, {}, function(fileEntry)
+                if(err)
                 {
-                    if(fileEntry.isFile === true)
+                    callback(err);
+                }
+                else
+                {
+                    fs.root.getFile(fileName, {}, function(fileEntry)
                     {
-                        // Get a File object representing the file,
-                        // then use FileReader to read its contents.
-                        fileEntry.file(function(file)
+                        if(fileEntry.isFile === true)
                         {
-                            var reader = new FileReader();
-
-                            reader.onloadend = function(e)
+                            // Get a File object representing the file,
+                            // then use FileReader to read its contents.
+                            fileEntry.file(function(file)
                             {
-                                callback(undefined,this.result);
-                            };
-                            parentCallback(reader,file);
-                        },
-                        function(error)
+                                var reader = new FileReader();
+
+                                reader.onloadend = function(e)
+                                {
+                                    callback(undefined,this.result);
+                                };
+                                parentCallback(reader,file);
+                            },
+                            function(error)
+                            {
+                                callback(error);
+                            });
+                        }
+                        else
                         {
-                            callback(error);
-                        });
-                    }
-                    else
+                            //TODO: error codes should be here
+                            callback();
+                        }
+                    },
+                    function(error)
                     {
-                        //TODO: error codes should be here
-                        callback();
-                    }
-                },
-                function(error)
-                {
-                    callback(error);
-                });
-            },
-            function(error)
-            {
-                callback(error);
+                        callback(error);
+                    });
+
+                }
             });
         }
-    }
+    },
+    /** operations for writing files*/
+    createFile:
+    {
+        value:function(fileName,callback)
+        {
+            this._getNativeFS(function(err,fs)
+            {
+                if(err)
+                {
+                    callback(err);
+                }
+                else
+                {
+                    fs.root.getFile(fileName,{create:true}, function(fileEntry)
+                    {
+                        callback(undefined,fileEntry);
+                    },
+                    function(err)
+                    {
+                       callback(err);
+                    });
+                }
+            });
+        }
+     }
 });
 
 /** Standard interface extensions */
