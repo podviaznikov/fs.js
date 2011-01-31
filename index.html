@@ -3,10 +3,15 @@
 <head>
     <title>fs.js demo</title>
     <script src="fs.js"></script>
+    <script src="file.dnd.js"></script>
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
 <section>
+    <div id="drop_zone">Drop text files here</div>
+    <div id="total_size"></div>
+    <output id="list"></output>
+
     <ul>
         <li><p class="test-name">Read file as dataURL:</p><button onclick="test1();">Run</button><p id="test1"></p></li>
         <li><p class="test-name">Read file as text:</p><button onclick="test2();">Run</button><p id="test2"></p></li>
@@ -19,6 +24,24 @@
     </ul>
 </section>
 <script>
+function handleFileSelect(files)
+{
+    var output = [];
+    var size = 0;
+    for (var i = 0, f; f = files[i]; i++)
+    {
+        size+=f.size;
+        f.number=i;
+        output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
+
+
+        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+    }
+    var sizeInMB = (size/(1024*1014)).toFixed(1);
+    document.getElementById('total_size').innerHTML = sizeInMB +' MB';
+}
+// Setup drag and drop zone
+var dropZone = new FileDropZone('drop_zone',handleFileSelect);    
 function test1()
 {
     fs.readFileAsDataURL('test.zip',function(err,data)
