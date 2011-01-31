@@ -98,9 +98,9 @@ var fs = Object.create({},
             });
         }
      },
-    writeText:
+    writeBlob:
     {
-        value:function(fileName,text,callback)
+        value:function(fileName,blob,callback)
         {
             this.createFile(fileName,function(err,fileEntry)
             {
@@ -116,9 +116,8 @@ var fs = Object.create({},
                    {
                        callback(e);
                    };
-                   var blobBuilder = new BlobBuilder('plain/text');
-                   blobBuilder.append(text);
-                   fileWriter.write(blobBuilder.getBlob('plain/text'));
+                   
+                   fileWriter.write(blob);
 
                 },
                 function(err)
@@ -126,6 +125,22 @@ var fs = Object.create({},
                     callback(err);    
                 });
             });
+        }
+    },     
+    writeText:
+    {
+        value:function(fileName,text,callback)
+        {
+            var blobBuilder = new BlobBuilder();
+            blobBuilder.append(text);
+            this.writeBlob(fileName,blobBuilder.getBlob('plain/text'),callback);
+        }
+    },
+    writeDataURL:
+    {
+        value:function(fileName,content,contentType,callback)
+        {
+            this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
         }
     },
     /* PRIVATE METHODS. Should be hidden somehow */
@@ -189,7 +204,24 @@ var fs = Object.create({},
                 }
             });
         }
+    },
+    _dataStringToBlob:
+    {
+        value:function(dataString,type)
+        {
+            var encodedString = atob(dataString);
+            var dataLength = encodedString.length;
+            var arrayData = new Int8Array(dataLength);
+            for(var i = 0; i < dataLength; i++)
+            {
+                arrayData[i] = encodedString.charCodeAt(i)
+            }
+            var blobBuilder = new BlobBuilder();
+            blobBuilder.append(arrayData.buffer);
+            return blobBuilder.getBlob(type);
+        }
     }
+
 });
 
 /** Standard interface extensions */
