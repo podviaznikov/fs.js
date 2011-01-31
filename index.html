@@ -15,6 +15,7 @@
         <li><p class="test-name">Read file that doesn't exists:</p><button onclick="test5();">Run</button><p id="test5"></p></li>
         <li><p class="test-name">Create file:</p><button onclick="test6();">Run</button><p id="test6"></p></li>
         <li><p class="test-name">Write text to file:</p><button onclick="test7();">Run</button><p id="test7"></p></li>
+        <li><p class="test-name">Write dataURL to file:</p><button onclick="test8();">Run</button><p id="test8"></p></li>
     </ul>
 </section>
 <script>
@@ -127,6 +128,23 @@ function test7()
         {
             console.log(data);
             document.getElementById('test7').innerText="Done";
+        }
+    });
+}
+function test8()
+{
+    var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
+    fs.writeDataURL('base64.zip',content,'application/zip',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test8').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test8').innerText="Done";
         }
     });
 }

@@ -140,7 +140,7 @@ var fs = Object.create({},
     {
         value:function(fileName,content,contentType,callback)
         {
-            this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
+            this.writeBlob(fileName,this._dataStringToBlob(content,contentType),callback);
         }
     },
     /* PRIVATE METHODS. Should be hidden somehow */
