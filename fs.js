@@ -103,8 +103,7 @@ var fs = Object.create({},
                         }
                         else
                         {
-                            //TODO: error codes should be here
-                            callback();
+                            callback(FileError.FILE_EXPECTED);
                         }
                     },
                     function(error)
@@ -150,6 +149,7 @@ var fs = Object.create({},
                 {
                    fileWriter.onwriteend = function(e)
                    {
+                       //do nothing after success. Pass nothing to success parameter of the callback
                        callback(undefined);
                    };
 
@@ -202,9 +202,20 @@ Object.defineProperty(File.prototype,
     }
 });
 /**
+ * Define custom error code. This error code used when file is expected but
+ * folder was gotten.
+ *
+ * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
+ */
+Object.defineProperty(FileError.prototype,'FILE_EXPECTED',
+{
+    value:6
+});
+/**
  * Method return readable explanation for the error codes.
  *
  * @return message description for the standard error codes.
+ * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
 Object.defineProperty(FileError.prototype,
 'message',
@@ -229,6 +240,9 @@ Object.defineProperty(FileError.prototype,
             case FileError.INVALID_STATE_ERR:
               msg = 'INVALID_STATE_ERR';
               break;
+            case FileError.FILE_EXPECTED:
+              msg = 'FILE_EXPECTED';
+              break;              
             default:
               msg = 'Unknown Error';
               break;
