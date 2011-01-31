@@ -36,7 +36,7 @@
       <file leaf-file-name="fs.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="161" column="4" selection-start="4471" selection-end="4471" vertical-scroll-proportion="0.3321976">
+            <state line="83" column="22" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.5076661">
               <folding />
             </state>
           </provider>
@@ -63,7 +63,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="20" selection-start="1390" selection-end="1390" vertical-scroll-proportion="-5.56">
+            <state line="32" column="13" selection-start="1470" selection-end="1470" vertical-scroll-proportion="-3.4">
               <folding />
             </state>
           </provider>
@@ -93,11 +93,11 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/manifest.json" />
-        <option value="$PROJECT_DIR$/fs.js" />
         <option value="$PROJECT_DIR$/pasha/index.html" />
         <option value="$PROJECT_DIR$/styles.css" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/README" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/fs.js" />
       </list>
     </option>
   </component>
@@ -282,14 +282,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="20" selection-start="1390" selection-end="1390" vertical-scroll-proportion="-5.56">
+        <state line="32" column="13" selection-start="1470" selection-end="1470" vertical-scroll-proportion="-3.4">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="161" column="4" selection-start="4471" selection-end="4471" vertical-scroll-proportion="0.3321976">
+        <state line="83" column="22" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.5076661">
           <folding />
         </state>
       </provider>

@@ -27,11 +27,11 @@ var fs = Object.create({},
      * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
      * Before using dataURL user should check whether error happened.
      */
-    readFileAsDataURL:
+    readAsDataURL:
     {
         value:function(fileName,callback)
         {
-            this._getFileReader(fileName,callback,function(reader,file)
+            this._getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsDataURL(file);
             });
@@ -43,31 +43,49 @@ var fs = Object.create({},
      * @param callback - callback after operation is done. Has 2 parameters: error and text.
      * Before using text user should check whether error happened.
      */
-    readFileAsText:
+    readAsText:
     {
         value:function(fileName,callback)
         {
-            this._getFileReader(fileName,callback,function(reader,file)
+            this._getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsText(file);
             });
         }
     },
-    readFileAsBinaryString:
+    /**
+     * Method reads content of the file as plain text.
+     * @param fileName - name of the file in the file system.
+     * @param callback - callback after operation is done. Has 2 parameters: error and text.
+     * Before using text user should check whether error happened.
+     */
+    readFileAsText:
+    {
+        value:function(file,callback)
+        {
+            //TODO(anton) some mess with parameters. file, theFile???
+            this._getReader(file,callback,function(reader,theFile)
+            {
+                reader.readAsText(theFile);
+            });
+        }
+    },
+
+    readAsBinaryString:
     {
         value:function(fileName,callback)
         {
-            this._getFileReader(fileName,callback,function(reader,file)
+            this._getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsBinaryString(file);
             });
         }
     },
-    readFileAsArrayBuffer:
+    readAsArrayBuffer:
     {
         value:function(fileName,callback)
         {
-            this._getFileReader(fileName,callback,function(reader,file)
+            this._getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsArrayBuffer(file);
             });
@@ -133,7 +151,7 @@ var fs = Object.create({},
         {
             var blobBuilder = new BlobBuilder();
             blobBuilder.append(text);
-            this.writeBlob(fileName,blobBuilder.getBlob('plain/text'),callback);
+            this.writeBlob(fileName,blobBuilder.getBlob('text/plain'),callback);
         }
     },
     writeDataURL:
@@ -159,10 +177,11 @@ var fs = Object.create({},
             });
         }
     },
-    _getFileReader:
+    _getReaderUsingFileName:
     {
         value:function(fileName,callback,parentCallback)
         {
+            var self = this;
             this._getNativeFS(function(err,fs)
             {
                 if(err)
@@ -179,13 +198,7 @@ var fs = Object.create({},
                             // then use FileReader to read its contents.
                             fileEntry.file(function(file)
                             {
-                                var reader = new FileReader();
-
-                                reader.onloadend = function(e)
-                                {
-                                    callback(undefined,this.result);
-                                };
-                                parentCallback(reader,file);
+                                self._getReader(file,callback,parentCallback);
                             },
                             function(error)
                             {
@@ -203,6 +216,18 @@ var fs = Object.create({},
                     });
                 }
             });
+        }
+    },
+    _getReader:
+    {
+        value:function(file,callback,parentCallback)
+        {
+            var reader = new FileReader();
+            reader.onloadend = function(e)
+            {
+                callback(undefined,this.result);
+            };
+            parentCallback(reader,file);
         }
     },
     _dataStringToBlob:
