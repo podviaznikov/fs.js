@@ -1,18 +1,32 @@
 "use strict";
 var fs = Object.create({},
 {
+    /**
+     * Configuration property. Indicates whether to use logging.
+     * Default value is <code>false</code> but can be changed.
+     */
     log:
     {
         value:false,
         writable:true
     },
+    /**
+     * Configuration property. Specifies the size of preserved space in file system.
+     * Default value is 5 GB but can be changed.
+     */    
     maxSize:
     {
         //default value is 5 GB
         value:5*1020*1024*1024,
         writable:true
     },
-    /** operations for reading files*/
+    /* READING FILES*/
+    /**
+     * Method reads content of the file as dataURL.
+     * @param fileName - name of the file in the file system.
+     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+     * Before using dataURL user should check whether error happened.
+     */
     readFileAsDataURL:
     {
         value:function(fileName,callback)
@@ -23,6 +37,12 @@ var fs = Object.create({},
             });
         }
     },
+    /**
+     * Method reads content of the file as plain text.
+     * @param fileName - name of the file in the file system.
+     * @param callback - callback after operation is done. Has 2 parameters: error and text.
+     * Before using text user should check whether error happened.
+     */
     readFileAsText:
     {
         value:function(fileName,callback)
@@ -53,6 +73,62 @@ var fs = Object.create({},
             });
         }
     },
+    /* WRITING DATA*/
+    createFile:
+    {
+        value:function(fileName,callback)
+        {
+            this._getNativeFS(function(err,fs)
+            {
+                if(err)
+                {
+                    callback(err);
+                }
+                else
+                {
+                    fs.root.getFile(fileName,{create:true}, function(fileEntry)
+                    {
+                        callback(undefined,fileEntry);
+                    },
+                    function(err)
+                    {
+                       callback(err);
+                    });
+                }
+            });
+        }
+     },
+    writeText:
+    {
+        value:function(fileName,text,callback)
+        {
+            this.createFile(fileName,function(err,fileEntry)
+            {
+                fileEntry.createWriter(function(fileWriter)
+                {
+                   fileWriter.onwriteend = function(e)
+                   {
+                       //do nothing after success. Pass nothing to success parameter of the callback
+                       callback(undefined);
+                   };
+
+                   fileWriter.onerror = function(e)
+                   {
+                       callback(e);
+                   };
+                   var blobBuilder = new BlobBuilder('plain/text');
+                   blobBuilder.append(text);
+                   fileWriter.write(blobBuilder.getBlob('plain/text'));
+
+                },
+                function(err)
+                {
+                    callback(err);    
+                });
+            });
+        }
+    },
+    /* PRIVATE METHODS. Should be hidden somehow */
     _getNativeFS:
     {
         value:function(callback)
@@ -113,61 +189,6 @@ var fs = Object.create({},
                 }
             });
         }
-    },
-    /** operations for writing files*/
-    createFile:
-    {
-        value:function(fileName,callback)
-        {
-            this._getNativeFS(function(err,fs)
-            {
-                if(err)
-                {
-                    callback(err);
-                }
-                else
-                {
-                    fs.root.getFile(fileName,{create:true}, function(fileEntry)
-                    {
-                        callback(undefined,fileEntry);
-                    },
-                    function(err)
-                    {
-                       callback(err);
-                    });
-                }
-            });
-        }
-     },
-    writeText:
-    {
-        value:function(fileName,text,callback)
-        {
-            this.createFile(fileName,function(err,fileEntry)
-            {
-                fileEntry.createWriter(function(fileWriter)
-                {
-                   fileWriter.onwriteend = function(e)
-                   {
-                       //do nothing after success. Pass nothing to success parameter of the callback
-                       callback(undefined);
-                   };
-
-                   fileWriter.onerror = function(e)
-                   {
-                       callback(e);
-                   };
-                   var blobBuilder = new BlobBuilder('plain/text');
-                   blobBuilder.append(text);
-                   fileWriter.write(blobBuilder.getBlob('plain/text'));
-
-                },
-                function(err)
-                {
-                    callback(err);    
-                });
-            });
-        }
     }
 });
 
@@ -186,12 +207,12 @@ Object.defineProperty(File.prototype,
         return this.name.substring(0,dotIndex);
     }
 });
+
 /**
  * Method extension for the file will return just extension.
  *
  * @return extension of the file.
  */
-
 Object.defineProperty(File.prototype,
 'extension',
 {
@@ -201,6 +222,7 @@ Object.defineProperty(File.prototype,
         return this.name.substring(dotIndex);
     }
 });
+
 /**
  * Define custom error code. This error code used when file is expected but
  * folder was gotten.
@@ -211,6 +233,7 @@ Object.defineProperty(FileError.prototype,'FILE_EXPECTED',
 {
     value:6
 });
+
 /**
  * Method return readable explanation for the error codes.
  *
