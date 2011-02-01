@@ -36,7 +36,7 @@
       <file leaf-file-name="fs.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="22" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.5076661">
+            <state line="183" column="53" selection-start="5292" selection-end="5292" vertical-scroll-proportion="0.66609883">
               <folding />
             </state>
           </provider>
@@ -63,7 +63,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="13" selection-start="1470" selection-end="1470" vertical-scroll-proportion="-3.4">
+            <state line="32" column="21" selection-start="1462" selection-end="1462" vertical-scroll-proportion="-6.36">
               <folding />
             </state>
           </provider>
@@ -282,14 +282,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="1470" selection-end="1470" vertical-scroll-proportion="-3.4">
+        <state line="32" column="21" selection-start="1462" selection-end="1462" vertical-scroll-proportion="-6.36">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="22" selection-start="2499" selection-end="2499" vertical-scroll-proportion="0.5076661">
+        <state line="183" column="53" selection-start="5292" selection-end="5292" vertical-scroll-proportion="0.66609883">
           <folding />
         </state>
       </provider>

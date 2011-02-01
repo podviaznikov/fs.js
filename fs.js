@@ -166,15 +166,23 @@ var fs = Object.create({},
     {
         value:function(callback)
         {
-            window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+            if (window.requestFileSystem)
             {
-                callback(undefined,fs);
-            },
-            /* error callback*/
-            function(err)
+                window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+                {
+                    callback(undefined,fs);
+                },
+                /* error callback*/
+                function(err)
+                {
+                    callback(err);
+                });
+            }
+            else
             {
-                callback(err);
-            });
+                //should be changed
+                callback('Filesystem is not supported');
+            }
         }
     },
     _getReaderUsingFileName:
@@ -263,6 +271,7 @@ Object.defineProperty(File.prototype,
         var dotIndex = this.name.lastIndexOf('.');
         return this.name.substring(0,dotIndex);
     }
+    ,writable:true
 });
 
 /**

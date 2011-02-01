@@ -24,6 +24,14 @@
     </ul>
 </section>
 <script>
+File.prototype.shortName = function()
+{
+    alert('Overrided');
+}
+File.prototype.shortName = function()
+{
+    alert('Overrided2');
+}
 function handleFileSelect(files)
 {
     var output = [];
