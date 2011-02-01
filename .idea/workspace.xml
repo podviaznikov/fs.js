@@ -33,19 +33,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fs.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="fs.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="0" selection-start="3080" selection-end="3120" vertical-scroll-proportion="0.0">
+            <state line="337" column="0" selection-start="11279" selection-end="11279" vertical-scroll-proportion="10.015735">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="39" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
+            <state line="22" column="0" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -107,8 +107,8 @@
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/file.dnd.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/fs.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/fs.js" />
       </list>
     </option>
   </component>
@@ -285,13 +285,6 @@
         <state line="6" column="26" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="0" selection-start="3080" selection-end="3120" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="7" selection-start="5511" selection-end="5511" vertical-scroll-proportion="-20.52">
@@ -301,7 +294,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="39" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
+        <state line="22" column="0" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="337" column="0" selection-start="11279" selection-end="11279" vertical-scroll-proportion="10.015735">
           <folding />
         </state>
       </provider>

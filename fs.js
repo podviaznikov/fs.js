@@ -18,9 +18,9 @@ var fs = (function()
     /* PRIVATE METHODS. Should be hidden somehow */
      var _getNativeFS=function(callback)
      {
-         if (window.requestFileSystem)
+         if (global.requestFileSystem)
          {
-             window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+             global.requestFileSystem(global.PERSISTENT, this.maxSize, function(fs)
              {
                  callback(undefined,fs);
              },
@@ -136,6 +136,7 @@ var fs = (function()
                 reader.readAsText(file);
             });
         },
+        
         /**
          * Method reads content of the file as plain text.
          * @param fileName - name of the file in the file system.
@@ -151,7 +152,12 @@ var fs = (function()
             });
         },
 
-
+        /**
+         * Method reads content of the file as binary text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
+         * Before using binary string result user should check whether error happened.
+         */
         readAsBinaryString:function(fileName,callback)
         {
             _getReaderUsingFileName(fileName,callback,function(reader,file)
@@ -190,7 +196,13 @@ var fs = (function()
                 }
             });
         },
-
+        /**
+         * Method for writing blob to file.
+         *
+         * @param fileName - filename in which data should be written. File will be created.
+         * @param blob - content of the file.
+         * @param callback - callback after execution may contain only one parameter: error.
+         */
         writeBlob:function(fileName,blob,callback)
         {
             this.createFile(fileName,function(err,fileEntry)
@@ -217,7 +229,13 @@ var fs = (function()
                 });
             });
         },
-
+        /**
+         * Method for writing text to the file.
+         *
+         * @param fileName - name of the file. File will be created.
+         * @param text - text (multi line using \r\n) that should be written.
+         * @param callback - callback with error parameter if something went wrong.
+         */
         writeText:function(fileName,text,callback)
         {
             var blobBuilder = new BlobBuilder();
@@ -225,9 +243,26 @@ var fs = (function()
             this.writeBlob(fileName,blobBuilder.getBlob('text/plain'),callback);
         },
 
+        /**
+         * Method for writing base64 encoded string to file.
+         *
+         * @param fileName - name of the file. File will be created.
+         * @param content - encoded string.
+         * @param contentType - content type.
+         * @param callback - callback with error parameter if something went wrong.
+         */
         writeDataURL:function(fileName,content,contentType,callback)
         {
-            this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
+            if(atob)
+            {
+                this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
+            }
+            else
+            {
+                //imagine error code
+                //TODO (anton) rethink it!
+                callback("Decoding function isn't supported");
+            }
         }
 
     }
