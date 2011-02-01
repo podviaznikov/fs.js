@@ -284,7 +284,6 @@ Object.defineProperty(File.prototype,
         var dotIndex = this.name.lastIndexOf('.');
         return this.name.substring(0,dotIndex);
     }
-    ,writable:true
 });
 
 /**
