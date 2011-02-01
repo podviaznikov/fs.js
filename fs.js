@@ -12,104 +12,166 @@
  * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 "use strict";
-var fs = Object.create({},
+var global = this; 
+var fs = (function()
 {
-    /**
-     * Configuration property. Indicates whether to use logging.
-     * Default value is <code>false</code> but can be changed.
-     */
-    log:
-    {
-        value:false,
-        writable:true
-    },
-    /**
-     * Configuration property. Specifies the size of preserved space in file system.
-     * Default value is 5 GB but can be changed.
-     */    
-    maxSize:
-    {
-        //default value is 5 GB
-        value:5*1020*1024*1024,
-        writable:true
-    },
-    /* READING FILES*/
-    /**
-     * Method reads content of the file as dataURL.
-     * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
-     * Before using dataURL user should check whether error happened.
-     */
-    readAsDataURL:
-    {
-        value:function(fileName,callback)
+    /* PRIVATE METHODS. Should be hidden somehow */
+     var _getNativeFS=function(callback)
+     {
+         if (window.requestFileSystem)
+         {
+             window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
+             {
+                 callback(undefined,fs);
+             },
+             /* error callback*/
+             function(err)
+             {
+                 callback(err);
+             });
+         }
+         else
+         {
+             //should be changed
+             callback('Filesystem is not supported');
+         }
+     };
+
+     var _getReaderUsingFileName=function(fileName,callback,parentCallback)
+     {
+         _getNativeFS(function(err,fs)
+         {
+             if(err)
+             {
+                 callback(err);
+             }
+             else
+             {
+                 fs.root.getFile(fileName, {}, function(fileEntry)
+                 {
+                     if(fileEntry.isFile === true)
+                     {
+                         // Get a File object representing the file,
+                         // then use FileReader to read its contents.
+                         fileEntry.file(function(file)
+                         {
+                             _getReader(file,callback,parentCallback);
+                         },
+                         function(error)
+                         {
+                             callback(error);
+                         });
+                     }
+                     else
+                     {
+                         callback(FileError.FILE_EXPECTED);
+                     }
+                 },
+                 function(error)
+                 {
+                     callback(error);
+                 });
+             }
+         });
+     };
+     var _getReader=function(file,callback,parentCallback)
+     {
+         var reader = new FileReader();
+         reader.onloadend = function(e)
+         {
+             callback(undefined,this.result);
+         };
+         parentCallback(reader,file);
+     };
+     var _dataStringToBlob=function(dataString,type)
+     {
+         var encodedString = atob(dataString);
+         var dataLength = encodedString.length;
+         var arrayData = new Int8Array(dataLength);
+         for(var i = 0; i < dataLength; i++)
+         {
+             arrayData[i] = encodedString.charCodeAt(i)
+         }
+         var blobBuilder = new BlobBuilder();
+         blobBuilder.append(arrayData.buffer);
+         return blobBuilder.getBlob(type);
+     };
+
+    return {
+        /**
+         * Configuration property. Indicates whether to use logging.
+         * Default value is <code>false</code> but can be changed.
+         */
+        log:false,
+        /**
+         * Configuration property. Specifies the size of preserved space in file system.
+         * Default value is 5 GB but can be changed.
+         */
+        maxSize:5*1020*1024*1024,
+        /* READING FILES*/
+        /**
+         * Method reads content of the file as dataURL.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using dataURL user should check whether error happened.
+         */
+        readAsDataURL:function(fileName,callback)
         {
-            this._getReaderUsingFileName(fileName,callback,function(reader,file)
+            _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsDataURL(file);
             });
-        }
-    },
-    /**
-     * Method reads content of the file as plain text.
-     * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and text.
-     * Before using text user should check whether error happened.
-     */
-    readAsText:
-    {
-        value:function(fileName,callback)
+        },
+
+        /**
+         * Method reads content of the file as plain text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and text.
+         * Before using text user should check whether error happened.
+         */
+        readAsText:function(fileName,callback)
         {
-            this._getReaderUsingFileName(fileName,callback,function(reader,file)
+            _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsText(file);
             });
-        }
-    },
-    /**
-     * Method reads content of the file as plain text.
-     * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and text.
-     * Before using text user should check whether error happened.
-     */
-    readFileAsText:
-    {
-        value:function(file,callback)
+        },
+        /**
+         * Method reads content of the file as plain text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and text.
+         * Before using text user should check whether error happened.
+         */
+        readFileAsText:function(file,callback)
         {
             //TODO(anton) some mess with parameters. file, theFile???
-            this._getReader(file,callback,function(reader,theFile)
+            _getReader(file,callback,function(reader,theFile)
             {
                 reader.readAsText(theFile);
             });
-        }
-    },
+        },
 
-    readAsBinaryString:
-    {
-        value:function(fileName,callback)
+
+        readAsBinaryString:function(fileName,callback)
         {
-            this._getReaderUsingFileName(fileName,callback,function(reader,file)
+            _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsBinaryString(file);
             });
-        }
-    },
-    readAsArrayBuffer:
-    {
-        value:function(fileName,callback)
+        },
+
+        readAsArrayBuffer:function(fileName,callback)
         {
-            this._getReaderUsingFileName(fileName,callback,function(reader,file)
+            _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsArrayBuffer(file);
             });
-        }
-    },
-    /* WRITING DATA*/
-    createFile:
-    {
-        value:function(fileName,callback)
+        },
+
+        /* WRITING DATA*/
+        createFile:function(fileName,callback)
         {
-            this._getNativeFS(function(err,fs)
+            _getNativeFS(function(err,fs)
             {
                 if(err)
                 {
@@ -127,11 +189,9 @@ var fs = Object.create({},
                     });
                 }
             });
-        }
-     },
-    writeBlob:
-    {
-        value:function(fileName,blob,callback)
+        },
+
+        writeBlob:function(fileName,blob,callback)
         {
             this.createFile(fileName,function(err,fileEntry)
             {
@@ -147,128 +207,31 @@ var fs = Object.create({},
                    {
                        callback(e);
                    };
-                   
+
                    fileWriter.write(blob);
 
                 },
                 function(err)
                 {
-                    callback(err);    
+                    callback(err);
                 });
             });
-        }
-    },     
-    writeText:
-    {
-        value:function(fileName,text,callback)
+        },
+
+        writeText:function(fileName,text,callback)
         {
             var blobBuilder = new BlobBuilder();
             blobBuilder.append(text);
             this.writeBlob(fileName,blobBuilder.getBlob('text/plain'),callback);
-        }
-    },
-    writeDataURL:
-    {
-        value:function(fileName,content,contentType,callback)
-        {
-            this.writeBlob(fileName,this._dataStringToBlob(content,contentType),callback);
-        }
-    },
-    /* PRIVATE METHODS. Should be hidden somehow */
-    _getNativeFS:
-    {
-        value:function(callback)
-        {
-            if (window.requestFileSystem)
-            {
-                window.requestFileSystem(window.PERSISTENT, this.maxSize, function(fs)
-                {
-                    callback(undefined,fs);
-                },
-                /* error callback*/
-                function(err)
-                {
-                    callback(err);
-                });
-            }
-            else
-            {
-                //should be changed
-                callback('Filesystem is not supported');
-            }
-        }
-    },
-    _getReaderUsingFileName:
-    {
-        value:function(fileName,callback,parentCallback)
-        {
-            var self = this;
-            this._getNativeFS(function(err,fs)
-            {
-                if(err)
-                {
-                    callback(err);
-                }
-                else
-                {
-                    fs.root.getFile(fileName, {}, function(fileEntry)
-                    {
-                        if(fileEntry.isFile === true)
-                        {
-                            // Get a File object representing the file,
-                            // then use FileReader to read its contents.
-                            fileEntry.file(function(file)
-                            {
-                                self._getReader(file,callback,parentCallback);
-                            },
-                            function(error)
-                            {
-                                callback(error);
-                            });
-                        }
-                        else
-                        {
-                            callback(FileError.FILE_EXPECTED);
-                        }
-                    },
-                    function(error)
-                    {
-                        callback(error);
-                    });
-                }
-            });
-        }
-    },
-    _getReader:
-    {
-        value:function(file,callback,parentCallback)
-        {
-            var reader = new FileReader();
-            reader.onloadend = function(e)
-            {
-                callback(undefined,this.result);
-            };
-            parentCallback(reader,file);
-        }
-    },
-    _dataStringToBlob:
-    {
-        value:function(dataString,type)
-        {
-            var encodedString = atob(dataString);
-            var dataLength = encodedString.length;
-            var arrayData = new Int8Array(dataLength);
-            for(var i = 0; i < dataLength; i++)
-            {
-                arrayData[i] = encodedString.charCodeAt(i)
-            }
-            var blobBuilder = new BlobBuilder();
-            blobBuilder.append(arrayData.buffer);
-            return blobBuilder.getBlob(type);
-        }
-    }
+        },
 
-});
+        writeDataURL:function(fileName,content,contentType,callback)
+        {
+            this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
+        }
+
+    }
+})();
 
 /** Standard interface extensions */
 /**

@@ -36,7 +36,7 @@
       <file leaf-file-name="fs.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="5" selection-start="8621" selection-end="8621" vertical-scroll-proportion="0.02972028">
+            <state line="79" column="0" selection-start="3080" selection-end="3120" vertical-scroll-proportion="0.94055945">
               <folding />
             </state>
           </provider>
@@ -72,7 +72,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="21" selection-start="1462" selection-end="1462" vertical-scroll-proportion="0.0">
+            <state line="60" column="0" selection-start="2255" selection-end="2255" vertical-scroll-proportion="-11.68">
               <folding />
             </state>
           </provider>
@@ -105,8 +105,8 @@
         <option value="$PROJECT_DIR$/pasha/index.html" />
         <option value="$PROJECT_DIR$/styles.css" />
         <option value="$PROJECT_DIR$/README" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/file.dnd.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/fs.js" />
       </list>
     </option>
@@ -138,6 +138,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -156,9 +157,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs.js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -269,6 +283,11 @@
         <state line="1" column="0" selection-start="7" selection-end="7" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/file.dnd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="3" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="1" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" />
@@ -279,30 +298,21 @@
         <state line="6" column="26" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="21" selection-start="1462" selection-end="1462" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file.dnd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="3" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="569" selection-end="569" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="569" selection-end="569" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="0" selection-start="2255" selection-end="2255" vertical-scroll-proportion="-11.68">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="5" selection-start="8621" selection-end="8621" vertical-scroll-proportion="0.02972028">
+        <state line="79" column="0" selection-start="3080" selection-end="3120" vertical-scroll-proportion="0.94055945">
           <folding />
         </state>
       </provider>
