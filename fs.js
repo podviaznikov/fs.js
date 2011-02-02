@@ -101,7 +101,7 @@ var fs = (function()
          blobBuilder.append(arrayData.buffer);
          return blobBuilder.getBlob(type);
      };
-     var _createFile:function(fileName,callback,options)
+    var _createFile=function(fileName,callback,options)
 	{
 	    _getNativeFS(function(err,fs)
 	    {
@@ -145,7 +145,7 @@ var fs = (function()
             _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsDataURL(file);
-            });
+            },{});
         },
 
         /**
@@ -159,7 +159,7 @@ var fs = (function()
             _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsText(file);
-            });
+            },{});
         },
         
         /**
@@ -207,7 +207,7 @@ var fs = (function()
             _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsBinaryString(file);
-            });
+            },{});
         },
 
         readAsArrayBuffer:function(fileName,callback)
@@ -215,17 +215,17 @@ var fs = (function()
             _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
                 reader.readAsArrayBuffer(file);
-            });
+            },{});
         },
 
         /* WRITING DATA*/
         createFile:function(fileName,callback)
         {
-            _createFile(fileName,callback);
+            _createFile(fileName,callback,{});
         },
         createTmpFile:function(fileName,callback)
         {
-            _createFile(fileName,callback),{tmp:true};
+            _createFile(fileName,callback,{tmp:true});
         },
         writeFile:function(file,callback)
         {
@@ -311,7 +311,6 @@ var fs = (function()
                 callback("Decoding function isn't supported");
             }
         }
-
     }
 })();
 
