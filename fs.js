@@ -42,7 +42,7 @@ var fs = (function()
          }
      };
 
-     var _getReaderUsingFileName=function(fileName,callback,parentCallback)
+     var _getReaderUsingFileName=function(fileName,callback,parentCallback,options)
      {
          _getNativeFS(function(err,fs)
          {
@@ -77,7 +77,7 @@ var fs = (function()
                      callback(error);
                  });
              }
-         });
+         },options);
      };
      var _getReader=function(file,callback,parentCallback)
      {
@@ -101,7 +101,27 @@ var fs = (function()
          blobBuilder.append(arrayData.buffer);
          return blobBuilder.getBlob(type);
      };
-
+     var _createFile:function(fileName,callback,options)
+	{
+	    _getNativeFS(function(err,fs)
+	    {
+		if(err)
+		{
+		    callback(err);
+		}
+		else
+		{
+		    fs.root.getFile(fileName,{create:true}, function(fileEntry)
+		    {
+			callback(undefined,fileEntry);
+		    },
+		    function(err)
+		    {
+		       callback(err);
+		    });
+		}
+	    },options);
+	};
     return {
         /**
          * Configuration property. Indicates whether to use logging.
@@ -201,24 +221,11 @@ var fs = (function()
         /* WRITING DATA*/
         createFile:function(fileName,callback)
         {
-            _getNativeFS(function(err,fs)
-            {
-                if(err)
-                {
-                    callback(err);
-                }
-                else
-                {
-                    fs.root.getFile(fileName,{create:true}, function(fileEntry)
-                    {
-                        callback(undefined,fileEntry);
-                    },
-                    function(err)
-                    {
-                       callback(err);
-                    });
-                }
-            });
+            _createFile(fileName,callback);
+        },
+        createTmpFile:function(fileName,callback)
+        {
+            _createFile(fileName,callback),{tmp:true};
         },
         writeFile:function(file,callback)
         {
