@@ -41,3 +41,45 @@ Object.defineProperty(File.prototype,
         return this.name.substring(dotIndex);
     }
 });
+/**
+ * Method return readable explanation for the error codes.
+ *
+ * @return message description for the standard error codes.
+ * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
+ */
+Object.defineProperty(FileError.prototype,
+'message',
+{
+    value:function()
+    {
+        var msg='';
+        switch (this.code)
+        {
+            case FileError.QUOTA_EXCEEDED_ERR:
+              msg = 'QUOTA_EXCEEDED_ERR';
+              break;
+            case FileError.NOT_FOUND_ERR:
+              msg = 'NOT_FOUND_ERR';
+              break;
+            case FileError.SECURITY_ERR:
+              msg = 'SECURITY_ERR';
+              break;
+            case FileError.INVALID_MODIFICATION_ERR:
+              msg = 'INVALID_MODIFICATION_ERR';
+              break;
+            case FileError.INVALID_STATE_ERR:
+              msg = 'INVALID_STATE_ERR';
+              break;
+            case fs.FILE_EXPECTED:
+              msg = 'FILE_EXPECTED';
+              break;
+            case fs.BROWSER_NOT_SUPPORTED:
+              msg = 'BROWSER_NOT_SUPPORTED';
+              break;
+            default:
+              msg = 'Unknown Error';
+              break;
+        };
+        return msg;
+    }
+});

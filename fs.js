@@ -20,12 +20,12 @@ var fs = (function()
      {
          if (global.requestFileSystem)
          {
-             var skope = global.PERSISTENT;
+             var scope = global.PERSISTENT;
              if(options && options.tmp)
              {
-             	skope = global.TEMPORARY;
+             	scope = global.TEMPORARY;
              }
-             global.requestFileSystem(skope, this.maxSize, function(fs)
+             global.requestFileSystem(scope, this.maxSize, function(fs)
              {
                  callback(undefined,fs);
              },
@@ -37,8 +37,7 @@ var fs = (function()
          }
          else
          {
-             //should be changed
-             callback('Filesystem is not supported');
+             callback(fs.BROWSER_NOT_SUPPORTED);
          }
      };
 
@@ -69,7 +68,7 @@ var fs = (function()
                      }
                      else
                      {
-                         callback(FileError.FILE_EXPECTED);
+                         callback(fs.FILE_EXPECTED);
                      }
                  },
                  function(error)
@@ -88,18 +87,25 @@ var fs = (function()
          };
          parentCallback(reader,file);
      };
-     var _dataStringToBlob=function(dataString,type)
+     var _dataStringToBlob=function(dataString,type,callback)
      {
-         var encodedString = atob(dataString);
-         var dataLength = encodedString.length;
-         var arrayData = new Int8Array(dataLength);
-         for(var i = 0; i < dataLength; i++)
+         if(atob && Int8Array)
          {
-             arrayData[i] = encodedString.charCodeAt(i)
+            var encodedString = atob(dataString);
+            var dataLength = encodedString.length;
+            var arrayData = new Int8Array(dataLength);
+            for(var i = 0; i < dataLength; i++)
+            {
+                arrayData[i] = encodedString.charCodeAt(i)
+            }
+            var blobBuilder = new BlobBuilder();
+            blobBuilder.append(arrayData.buffer);
+            callback(undefined,blobBuilder.getBlob(type));
          }
-         var blobBuilder = new BlobBuilder();
-         blobBuilder.append(arrayData.buffer);
-         return blobBuilder.getBlob(type);
+         else
+         {
+             callback(fs.BROWSER_NOT_SUPPORTED);
+         }
      };
     var _createFile=function(fileName,callback,options)
 	{
@@ -113,11 +119,11 @@ var fs = (function()
 		{
 		    fs.root.getFile(fileName,{create:true}, function(fileEntry)
 		    {
-			callback(undefined,fileEntry);
+                callback(undefined,fileEntry);
 		    },
 		    function(err)
 		    {
-		       callback(err);
+                callback(err);
 		    });
 		}
 	    },options);
@@ -300,68 +306,39 @@ var fs = (function()
          */
         writeDataURL:function(fileName,content,contentType,callback)
         {
-            if(atob)
+            _dataStringToBlob(content,contentType,function(err,blob)
             {
-                this.writeBlob(fileName,_dataStringToBlob(content,contentType),callback);
-            }
-            else
-            {
-                //imagine error code
-                //TODO (anton) rethink it!
-                callback("Decoding function isn't supported");
-            }
+               if(err)
+               {
+                   callback(err);
+               }
+               else
+               {
+                   this.writeBlob(fileName,blob,callback);
+               }
+            });
         }
     }
 })();
 
-/** Standard interface extensions */
 /**
  * Define custom error code. This error code used when file is expected but
  * folder was gotten.
  *
  * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
-Object.defineProperty(FileError.prototype,'FILE_EXPECTED',
+Object.defineProperty(fs.prototype,'FILE_EXPECTED',
 {
     value:6
 });
 
 /**
- * Method return readable explanation for the error codes.
+ * Define custom error code. This error code used when browser doesn't support
+ * one of the requested features.
  *
- * @return message description for the standard error codes.
  * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
-Object.defineProperty(FileError.prototype,
-'message',
+Object.defineProperty(fs.prototype,'BROWSER_NOT_SUPPORTED',
 {
-    value:function()
-    {
-        var msg='';
-        switch (this.code)
-        {
-            case FileError.QUOTA_EXCEEDED_ERR:
-              msg = 'QUOTA_EXCEEDED_ERR';
-              break;
-            case FileError.NOT_FOUND_ERR:
-              msg = 'NOT_FOUND_ERR';
-              break;
-            case FileError.SECURITY_ERR:
-              msg = 'SECURITY_ERR';
-              break;
-            case FileError.INVALID_MODIFICATION_ERR:
-              msg = 'INVALID_MODIFICATION_ERR';
-              break;
-            case FileError.INVALID_STATE_ERR:
-              msg = 'INVALID_STATE_ERR';
-              break;
-            case FileError.FILE_EXPECTED:
-              msg = 'FILE_EXPECTED';
-              break;              
-            default:
-              msg = 'Unknown Error';
-              break;
-        };
-        return msg;
-    }
+    value:7
 });

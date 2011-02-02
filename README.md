@@ -1,6 +1,8 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
+Current version of library is 0.5. Version indicates approximate amount of original API covered. 1.0 would mean that all
+methods are supported.
 
 ## Files
 
@@ -24,7 +26,11 @@ After application create just put test files from test_data folder into the file
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
     fs.writeDataURL('base64.zip',content,'application/zip',function(err,data){...}
 
-More functionality and examples to come.
+## To come
+ - add method for dealing with temporary files
+ - add method for deleting files/moving
+ - add method for renaming files
+ - add operation to support directories
 
 ## License
 
