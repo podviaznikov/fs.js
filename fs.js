@@ -317,36 +317,6 @@ var fs = (function()
 
 /** Standard interface extensions */
 /**
- * Method shortName for the file will return just name of the file without extension.
- *
- * @return name of the file without extension.
- */
-Object.defineProperty(File.prototype,
-'shortName',
-{
-    value:function()
-    {
-        var dotIndex = this.name.lastIndexOf('.');
-        return this.name.substring(0,dotIndex);
-    }
-});
-
-/**
- * Method extension for the file will return just extension.
- *
- * @return extension of the file.
- */
-Object.defineProperty(File.prototype,
-'extension',
-{
-    value:function()
-    {
-        var dotIndex = this.name.lastIndexOf('.');
-        return this.name.substring(dotIndex);
-    }
-});
-
-/**
  * Define custom error code. This error code used when file is expected but
  * folder was gotten.
  *
