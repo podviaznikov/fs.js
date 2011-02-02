@@ -128,6 +128,76 @@ var fs = (function()
 		}
 	    },options);
 	};
+    var _writeBlobToFile=function(fileName,blob,callback,options)
+    {
+        this.createFile(fileName,function(err,fileEntry)
+        {
+            fileEntry.createWriter(function(fileWriter)
+            {
+               fileWriter.onwriteend = function(e)
+               {
+                   //do nothing after success. Pass nothing to success parameter of the callback
+                   callback(undefined);
+               };
+
+               fileWriter.onerror = function(e)
+               {
+                   callback(e);
+               };
+
+               fileWriter.write(blob);
+
+            },
+            function(err)
+            {
+                callback(err);
+            });
+        },options);
+    };
+
+    var _writeTextToFile=function(fileName,text,callback,options)
+    {
+        var blobBuilder = new BlobBuilder();
+        blobBuilder.append(text);
+        _writeBlobToFile(fileName,blobBuilder.getBlob('text/plain'),callback,options);
+    };
+
+    var _writeArrayBufferToFile=function(fileName,contentType,arrayBuffer,callback,options)
+    {
+        var blobBuilder = new BlobBuilder();
+        blobBuilder.append(arrayBuffer);
+        _writeBlobToFile(fileName,blobBuilder.getBlob(contentType),callback);
+    };
+
+    var _writeFileToFile=function(file,callback,options)
+    {
+        this.readFileAsArrayBuffer(file,function(err,arrayBuffer)
+        {
+            if(err)
+            {
+                callback(err);
+            }
+            else
+            {
+                _writeArrayBufferToFile(file.name,file.type,arrayBuffer,callback,options);
+            }
+        });
+    };
+    var _writeDataUrlToFile=function(fileName,content,contentType,callback,options)
+    {
+        _dataStringToBlob(content,contentType,function(err,blob)
+        {
+           if(err)
+           {
+               callback(err);
+           }
+           else
+           {
+               _writeBlobToFile(fileName,blob,callback,options);
+           }
+        });
+    };
+
     return {
         /**
          * Configuration property. Indicates whether to use logging.
@@ -146,7 +216,7 @@ var fs = (function()
          * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
          * Before using dataURL user should check whether error happened.
          */
-        readAsDataURL:function(fileName,callback)
+        readAsDataUrl:function(fileName,callback)
         {
             _getReaderUsingFileName(fileName,callback,function(reader,file)
             {
@@ -233,21 +303,14 @@ var fs = (function()
         {
             _createFile(fileName,callback,{tmp:true});
         },
-        writeFile:function(file,callback)
+        writeFileToFile:function(file,callback)
         {
-            this.readFileAsArrayBuffer(file,function(err,arrayBuffer)
-            {
-                if(err)
-                {
-                    callback(err);
-                }
-                else
-                {
-                    var blobBuilder = new BlobBuilder();
-                    blobBuilder.append(arrayBuffer);
-                    this.writeBlob(file.name,blobBuilder.getBlob(file.type),callback);
-                }
-            });
+            _writeFileToFile(file,callback,{});
+        },
+
+        writeFileToTmpFile:function(file,callback)
+        {
+            _writeFileToFile(file,callback,{tmp:true});
         },
         /**
          * Method for writing blob to file.
@@ -256,32 +319,22 @@ var fs = (function()
          * @param blob - content of the file.
          * @param callback - callback after execution may contain only one parameter: error.
          */
-        writeBlob:function(fileName,blob,callback)
+        writeBlobToFile:function(fileName,blob,callback)
         {
-            this.createFile(fileName,function(err,fileEntry)
-            {
-                fileEntry.createWriter(function(fileWriter)
-                {
-                   fileWriter.onwriteend = function(e)
-                   {
-                       //do nothing after success. Pass nothing to success parameter of the callback
-                       callback(undefined);
-                   };
-
-                   fileWriter.onerror = function(e)
-                   {
-                       callback(e);
-                   };
-
-                   fileWriter.write(blob);
-
-                },
-                function(err)
-                {
-                    callback(err);
-                });
-            });
+            _writeBlobToFile(fileName,blob,callback,{});
         },
+        /**
+         * Method for writing blob to temp file.
+         *
+         * @param fileName - filename in which data should be written. File will be created.
+         * @param blob - content of the file.
+         * @param callback - callback after execution may contain only one parameter: error.
+         */
+        writeBlobToTmpFile:function(fileName,blob,callback)
+        {
+            _writeBlobToFile(fileName,blob,callback,{tmp:true});
+        },
+
         /**
          * Method for writing text to the file.
          *
@@ -289,11 +342,21 @@ var fs = (function()
          * @param text - text (multi line using \r\n) that should be written.
          * @param callback - callback with error parameter if something went wrong.
          */
-        writeText:function(fileName,text,callback)
+        writeTextToFile:function(fileName,text,callback)
         {
-            var blobBuilder = new BlobBuilder();
-            blobBuilder.append(text);
-            this.writeBlob(fileName,blobBuilder.getBlob('text/plain'),callback);
+            _writeTextToFile(fileName,text,callback,{});
+        },
+
+        /**
+         * Method for writing text to the file.
+         *
+         * @param fileName - name of the file. File will be created.
+         * @param text - text (multi line using \r\n) that should be written.
+         * @param callback - callback with error parameter if something went wrong.
+         */
+        writeTextToTmpFile:function(fileName,text,callback)
+        {
+            _writeTextToFile(fileName,text,callback,{tmp:true});
         },
 
         /**
@@ -304,19 +367,22 @@ var fs = (function()
          * @param contentType - content type.
          * @param callback - callback with error parameter if something went wrong.
          */
-        writeDataURL:function(fileName,content,contentType,callback)
+        writeDataUrlToFile:function(fileName,content,contentType,callback)
         {
-            _dataStringToBlob(content,contentType,function(err,blob)
-            {
-               if(err)
-               {
-                   callback(err);
-               }
-               else
-               {
-                   this.writeBlob(fileName,blob,callback);
-               }
-            });
+            _writeDataUrlToFile(fileName,content,contentType,callback,{});
+        },
+
+         /**
+         * Method for writing base64 encoded string to temp file.
+         *
+         * @param fileName - name of the file. File will be created.
+         * @param content - encoded string.
+         * @param contentType - content type.
+         * @param callback - callback with error parameter if something went wrong.
+         */
+        writeDataUrlToFile:function(fileName,content,contentType,callback)
+        {
+            _writeDataUrlToFile(fileName,content,contentType,callback,{tmp:true});
         }
     }
 })();

@@ -59,7 +59,7 @@ function handleFileSelect(files)
 var dropZone = new FileDropZone('drop_zone',handleFileSelect);    
 function test1()
 {
-    fs.readAsDataURL('test.zip',function(err,data)
+    fs.readAsDataUrl('test.zip',function(err,data)
     {
         if(err)
         {
@@ -155,7 +155,7 @@ function test6()
 }
 function test7()
 {
-    fs.writeText('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    fs.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {
@@ -172,7 +172,7 @@ function test7()
 function test8()
 {
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.writeDataURL('base64.zip',content,'application/zip',function(err,data)
+    fs.writeDataUrlToFile('base64.zip',content,'application/zip',function(err,data)
     {
         if(err)
         {

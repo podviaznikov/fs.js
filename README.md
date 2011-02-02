@@ -15,16 +15,16 @@ To test it's functionality you can checkout whole project. Install it as Google 
 After application create just put test files from test_data folder into the file system folder for your application.
 
 ## Read files
-    fs.readAsText('test.txt',function(err,data){...}
-    fs.readAsDataURL('test.zip',function(err,data){...}
-    fs.readAsBinaryString('test.txt',function(err,data){...}
-    fs.readAsArrayBuffer('test.txt',function(err,data){...}
+    fs.readFileAsText('test.txt',function(err,data){...}
+    fs.readFileAsDataUrl('test.zip',function(err,data){...}
+    fs.readFileAsBinaryString('test.txt',function(err,data){...}
+    fs.readFileAsArrayBuffer('test.txt',function(err,data){...}
 
 ## Write files
-    fs.writeText('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
+    fs.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
 
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.writeDataURL('base64.zip',content,'application/zip',function(err,data){...}
+    fs.writeDataUrlToFile('base64.zip',content,'application/zip',function(err,data){...}
 
 ## To come
  - add method for dealing with temporary files
