@@ -152,6 +152,25 @@ var fs = (function()
             });
         },
 
+        readFileAsDataURL:function(file,callback)
+        {
+            //TODO(anton) some mess with parameters. file, theFile???
+            _getReader(file,callback,function(reader,theFile)
+            {
+                reader.readAsDataURL(theFile);
+            });
+        },
+
+        readFileAsArrayBuffer:function(file,callback)
+        {
+            //TODO(anton) some mess with parameters. file, theFile???
+            _getReader(file,callback,function(reader,theFile)
+            {
+                reader.readAsArrayBuffer(theFile);
+            });
+        },
+
+
         /**
          * Method reads content of the file as binary text.
          * @param fileName - name of the file in the file system.
@@ -193,6 +212,22 @@ var fs = (function()
                     {
                        callback(err);
                     });
+                }
+            });
+        },
+        writeFile:function(file,callback)
+        {
+            this.readFileAsArrayBuffer(file,function(err,arrayBuffer)
+            {
+                if(err)
+                {
+                    callback(err);
+                }
+                else
+                {
+                    var blobBuilder = new BlobBuilder();
+                    blobBuilder.append(arrayBuffer);
+                    this.writeBlob(file.name,blobBuilder.getBlob(file.type),callback);
                 }
             });
         },
