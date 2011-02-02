@@ -15,12 +15,17 @@
 var global = this; 
 var fs = (function()
 {
-    /* PRIVATE METHODS. Should be hidden somehow */
-     var _getNativeFS=function(callback)
+    /* PRIVATE METHODS.*/
+     var _getNativeFS=function(callback,options)
      {
          if (global.requestFileSystem)
          {
-             global.requestFileSystem(global.PERSISTENT, this.maxSize, function(fs)
+             var skope = global.PERSISTENT;
+             if(options && options.tmp)
+             {
+             	skope = global.TEMPORARY;
+             }
+             global.requestFileSystem(skope, this.maxSize, function(fs)
              {
                  callback(undefined,fs);
              },
