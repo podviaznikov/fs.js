@@ -98,9 +98,7 @@ var fs = (function()
             {
                 arrayData[i] = encodedString.charCodeAt(i)
             }
-            var blobBuilder = new BlobBuilder();
-            blobBuilder.append(arrayData.buffer);
-            callback(undefined,blobBuilder.getBlob(type));
+            callback(undefined,_buildBlob(arrayData.buffered,type));
          }
          else
          {
@@ -146,7 +144,6 @@ var fs = (function()
                };
 
                fileWriter.write(blob);
-
             },
             function(err)
             {
@@ -157,16 +154,14 @@ var fs = (function()
 
     var _writeTextToFile=function(fileName,text,callback,options)
     {
-        var blobBuilder = new BlobBuilder();
-        blobBuilder.append(text);
-        _writeBlobToFile(fileName,blobBuilder.getBlob('text/plain'),callback,options);
+        var blob = _buildBlob(text,'text/plain');
+        _writeBlobToFile(fileName,blob,callback,options);
     };
 
     var _writeArrayBufferToFile=function(fileName,contentType,arrayBuffer,callback,options)
     {
-        var blobBuilder = new BlobBuilder();
-        blobBuilder.append(arrayBuffer);
-        _writeBlobToFile(fileName,blobBuilder.getBlob(contentType),callback);
+        var blob = _buildBlob(arrayBuffer,contentType);
+        _writeBlobToFile(fileName,blob,callback);
     };
 
     var _writeFileToFile=function(file,callback,options)
@@ -230,6 +225,12 @@ var fs = (function()
         },options);
     };
 
+    var _buildBlob=function(content,contentType)
+    {
+        var blobBuilder = new BlobBuilder();
+        blobBuilder.append(content);
+        return blobBuilder.getBlob(contentType);
+    };
 
     return {
         /**
