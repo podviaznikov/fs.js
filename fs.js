@@ -111,21 +111,21 @@ var fs = (function()
 	{
 	    _getNativeFS(function(err,fs)
 	    {
-		if(err)
-		{
-		    callback(err);
-		}
-		else
-		{
-		    fs.root.getFile(fileName,{create:true}, function(fileEntry)
-		    {
-                callback(undefined,fileEntry);
-		    },
-		    function(err)
-		    {
+            if(err)
+            {
                 callback(err);
-		    });
-		}
+            }
+            else
+            {
+                fs.root.getFile(fileName,{create:true}, function(fileEntry)
+                {
+                    callback(undefined,fileEntry);
+                },
+                function(err)
+                {
+                    callback(err);
+                });
+            }
 	    },options);
 	};
     var _writeBlobToFile=function(fileName,blob,callback,options)
@@ -183,7 +183,7 @@ var fs = (function()
             }
         });
     };
-    var _writeDataUrlToFile=function(fileName,content,contentType,callback,options)
+    var _writeBase64StrToFile=function(fileName,content,contentType,callback,options)
     {
         _dataStringToBlob(content,contentType,function(err,blob)
         {
@@ -198,6 +198,39 @@ var fs = (function()
         });
     };
 
+    var _readAsDataUrl=function(fileName,callback,options)
+    {
+        _getReaderUsingFileName(fileName,callback,function(reader,file)
+        {
+            reader.readAsDataURL(file);
+        },options);
+    };
+
+    var _readAsText=function(fileName,callback,options)
+    {
+        _getReaderUsingFileName(fileName,callback,function(reader,file)
+        {
+            reader.readAsText(file);
+        },options);
+    };
+
+    var _readAsBinaryString=function(fileName,callback,options)
+    {
+        _getReaderUsingFileName(fileName,callback,function(reader,file)
+        {
+            reader.readAsBinaryString(file);
+        },options);
+    };
+
+    var _readAsArrayBuffer=function(fileName,callback,options)
+    {
+        _getReaderUsingFileName(fileName,callback,function(reader,file)
+        {
+            reader.readAsArrayBuffer(file);
+        },options);
+    };
+
+
     return {
         /**
          * Configuration property. Indicates whether to use logging.
@@ -210,6 +243,7 @@ var fs = (function()
          */
         maxSize:5*1020*1024*1024,
         /* READING FILES*/
+
         /**
          * Method reads content of the file as dataURL.
          * @param fileName - name of the file in the file system.
@@ -218,10 +252,18 @@ var fs = (function()
          */
         readAsDataUrl:function(fileName,callback)
         {
-            _getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsDataURL(file);
-            },{});
+            _readAsDataUrl(fileName,callback,{});
+        },
+
+        /**
+         * Method reads content of the temporary file as dataURL.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using dataURL user should check whether error happened.
+         */
+        readTmpFileAsDataUrl:function(fileName,callback)
+        {
+            _readAsDataUrl(fileName,callback,{tmp:true});
         },
 
         /**
@@ -232,15 +274,68 @@ var fs = (function()
          */
         readAsText:function(fileName,callback)
         {
-            _getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsText(file);
-            },{});
+            _readAsText(fileName,callback,{});
+        },
+
+        /**
+         * Method reads content of the temporary file as plain text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and text.
+         * Before using text user should check whether error happened.
+         */
+        readTmpFileAsText:function(fileName,callback)
+        {
+            _readAsText(fileName,callback,{tmp:true});
+        },
+
+        /**
+         * Method reads content of the file as binary text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
+         * Before using binary string result user should check whether error happened.
+         */
+        readAsBinaryString:function(fileName,callback)
+        {
+            _readAsBinaryString(fileName,callback,{});
+        },
+
+        /**
+         * Method reads content of the temporary file as binary text.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
+         * Before using binary string result user should check whether error happened.
+         */
+        readTmpFileAsBinaryString:function(fileName,callback)
+        {
+            _readAsBinaryString(fileName,callback,{tmp:true});
+        },
+
+        /**
+         * Method reads content of the file as array buffer.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using array buffer user should check whether error happened.
+         */
+        readAsArrayBuffer:function(fileName,callback)
+        {
+            _readAsArrayBuffer(fileName,callback,{});
+        },
+
+        /**
+         * Method reads content of the temporary file as array buffer.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using array buffer user should check whether error happened.
+         */
+        readTmpFileAsArrayBuffer:function(fileName,callback)
+        {
+            _readAsArrayBuffer(fileName,callback,{tmp:true});
         },
         
+
         /**
          * Method reads content of the file as plain text.
-         * @param fileName - name of the file in the file system.
+         * @param file - file object.
          * @param callback - callback after operation is done. Has 2 parameters: error and text.
          * Before using text user should check whether error happened.
          */
@@ -253,6 +348,12 @@ var fs = (function()
             });
         },
 
+        /**
+         * Method reads content of the file as dataURL.
+         * @param file - file object.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using datURL user should check whether error happened.
+         */
         readFileAsDataURL:function(file,callback)
         {
             //TODO(anton) some mess with parameters. file, theFile???
@@ -261,7 +362,13 @@ var fs = (function()
                 reader.readAsDataURL(theFile);
             });
         },
-
+        
+        /**
+         * Method reads content of the file as array buffer.
+         * @param fileName - name of the file in the file system.
+         * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+         * Before using array buffer user should check whether error happened.
+         */
         readFileAsArrayBuffer:function(file,callback)
         {
             //TODO(anton) some mess with parameters. file, theFile???
@@ -269,29 +376,6 @@ var fs = (function()
             {
                 reader.readAsArrayBuffer(theFile);
             });
-        },
-
-
-        /**
-         * Method reads content of the file as binary text.
-         * @param fileName - name of the file in the file system.
-         * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
-         * Before using binary string result user should check whether error happened.
-         */
-        readAsBinaryString:function(fileName,callback)
-        {
-            _getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsBinaryString(file);
-            },{});
-        },
-
-        readAsArrayBuffer:function(fileName,callback)
-        {
-            _getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsArrayBuffer(file);
-            },{});
         },
 
         /* WRITING DATA*/
@@ -312,6 +396,7 @@ var fs = (function()
         {
             _writeFileToFile(file,callback,{tmp:true});
         },
+        
         /**
          * Method for writing blob to file.
          *
@@ -323,6 +408,7 @@ var fs = (function()
         {
             _writeBlobToFile(fileName,blob,callback,{});
         },
+        
         /**
          * Method for writing blob to temp file.
          *
@@ -348,7 +434,7 @@ var fs = (function()
         },
 
         /**
-         * Method for writing text to the file.
+         * Method for writing text to the temporary file.
          *
          * @param fileName - name of the file. File will be created.
          * @param text - text (multi line using \r\n) that should be written.
@@ -367,9 +453,9 @@ var fs = (function()
          * @param contentType - content type.
          * @param callback - callback with error parameter if something went wrong.
          */
-        writeDataUrlToFile:function(fileName,content,contentType,callback)
+        writeBase64StrToFile:function(fileName,content,contentType,callback)
         {
-            _writeDataUrlToFile(fileName,content,contentType,callback,{});
+            _writeBase64StrToFile(fileName,content,contentType,callback,{});
         },
 
          /**
@@ -380,9 +466,9 @@ var fs = (function()
          * @param contentType - content type.
          * @param callback - callback with error parameter if something went wrong.
          */
-        writeDataUrlToFile:function(fileName,content,contentType,callback)
+        writeBase64StrToTmpFile:function(fileName,content,contentType,callback)
         {
-            _writeDataUrlToFile(fileName,content,contentType,callback,{tmp:true});
+            _writeBase64StrToFile(fileName,content,contentType,callback,{tmp:true});
         }
     }
 })();

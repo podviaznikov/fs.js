@@ -36,7 +36,7 @@
       <file leaf-file-name="fs.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="404" column="36" selection-start="13594" selection-end="13594" vertical-scroll-proportion="0.0">
+            <state line="307" column="33" selection-start="10413" selection-end="10438" vertical-scroll-proportion="-12.84">
               <folding />
             </state>
           </provider>
@@ -45,7 +45,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="25" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.91083914">
+            <state line="38" column="20" selection-start="1942" selection-end="1942" vertical-scroll-proportion="0.48776224">
               <folding />
             </state>
           </provider>
@@ -90,7 +90,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="12" selection-start="2891" selection-end="2891" vertical-scroll-proportion="42.0">
+            <state line="84" column="12" selection-start="2891" selection-end="2891" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -148,8 +148,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,6 +168,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -267,7 +267,14 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://C:/Users/apodvyaznikov/WebstormProjects/berzasoba/pasha/index.html</url>
+          <line>43</line>
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/berzasoba/pasha/index.html">
@@ -280,47 +287,43 @@
         <state line="1" column="0" selection-start="7" selection-end="7" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="26" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file.dnd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="3" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs.ext.js">
+    <entry file="file://$PROJECT_DIR$/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="41" selection-start="2765" selection-end="2786" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="26" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="12" selection-start="2891" selection-end="2891" vertical-scroll-proportion="42.0">
+        <state line="84" column="12" selection-start="2891" selection-end="2891" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fs.ext.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="41" selection-start="2765" selection-end="2786" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="404" column="36" selection-start="13594" selection-end="13594" vertical-scroll-proportion="0.0">
+        <state line="307" column="33" selection-start="10413" selection-end="10438" vertical-scroll-proportion="-12.84">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="25" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.91083914">
+        <state line="38" column="20" selection-start="1942" selection-end="1942" vertical-scroll-proportion="0.48776224">
           <folding />
         </state>
       </provider>

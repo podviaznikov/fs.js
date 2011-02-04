@@ -172,7 +172,7 @@ function test7()
 function test8()
 {
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.writeDataUrlToFile('base64.zip',content,'application/zip',function(err,data)
+    fs.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data)
     {
         if(err)
         {
