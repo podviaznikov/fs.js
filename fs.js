@@ -98,7 +98,7 @@ var fs = (function()
             {
                 arrayData[i] = encodedString.charCodeAt(i)
             }
-            callback(undefined,_buildBlob(arrayData.buffered,type));
+            callback(undefined,this.createBlob(arrayData.buffered,type));
          }
          else
          {
@@ -154,14 +154,14 @@ var fs = (function()
 
     var _writeTextToFile=function(fileName,text,callback,options)
     {
-        var blob = _buildBlob(text,'text/plain');
+        var blob = this.createBlob(text,'text/plain');
         _writeBlobToFile(fileName,blob,callback,options);
     };
 
     var _writeArrayBufferToFile=function(fileName,contentType,arrayBuffer,callback,options)
     {
-        var blob = _buildBlob(arrayBuffer,contentType);
-        _writeBlobToFile(fileName,blob,callback);
+        var blob = this.createBlob(arrayBuffer,contentType);
+        _writeBlobToFile(fileName,blob,callback,options);
     };
 
     var _writeFileToFile=function(file,callback,options)
@@ -225,13 +225,6 @@ var fs = (function()
         },options);
     };
 
-    var _buildBlob=function(content,contentType)
-    {
-        var blobBuilder = new BlobBuilder();
-        blobBuilder.append(content);
-        return blobBuilder.getBlob(contentType);
-    };
-
     return {
         /**
          * Configuration property. Indicates whether to use logging.
@@ -243,6 +236,13 @@ var fs = (function()
          * Default value is 5 GB but can be changed.
          */
         maxSize:5*1020*1024*1024,
+
+        createBlob:function(content,contentType)
+        {
+            var blobBuilder = new BlobBuilder();
+            blobBuilder.append(content);
+            return blobBuilder.getBlob(contentType);
+        },
         /* READING FILES*/
 
         /**
@@ -480,7 +480,7 @@ var fs = (function()
  *
  * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
-Object.defineProperty(fs.prototype,'FILE_EXPECTED',
+Object.defineProperty(fs,'FILE_EXPECTED',
 {
     value:6
 });
@@ -491,7 +491,7 @@ Object.defineProperty(fs.prototype,'FILE_EXPECTED',
  *
  * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
-Object.defineProperty(fs.prototype,'BROWSER_NOT_SUPPORTED',
+Object.defineProperty(fs,'BROWSER_NOT_SUPPORTED',
 {
     value:7
 });
