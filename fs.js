@@ -225,6 +225,22 @@ var fs = (function()
         },options);
     };
 
+
+    var _createDirectory=function(directoryName,callback,options)
+    {
+        _getNativeFS(function(err,fs)
+        {
+            if(err)
+            {
+                callback(err);
+            }
+            else
+            {
+                var directory=fs.root.getDirectory(directoryName,{create:true});
+                callback(directory);
+            }
+        },options);
+    };
     return {
         /**
          * Configuration property. Indicates whether to use logging.
@@ -379,7 +395,8 @@ var fs = (function()
             });
         },
 
-        /* WRITING DATA*/
+        /* Files and Directories*/
+
         createFile:function(fileName,callback)
         {
             _createFile(fileName,callback,{});
@@ -388,6 +405,18 @@ var fs = (function()
         {
             _createFile(fileName,callback,{tmp:true});
         },
+
+        createDirectory:function(directoryName,callback)
+        {
+            _createDirectory(directoryName,callback,{});
+        },
+
+        createTmpDirectory:function(directoryName,callback)
+        {
+            _createDirectory(directoryName,callback,{tmp:true});  
+        },
+
+        /* WRITING DATA*/
         writeFileToFile:function(file,callback)
         {
             _writeFileToFile(file,callback,{});

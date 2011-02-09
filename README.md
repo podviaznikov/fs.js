@@ -1,7 +1,7 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.5.6 Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.5.7 Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
 ## Files
@@ -31,6 +31,9 @@ Discussed read/write operations are used for persistent files. Almost same API w
 for temporary files.
 E.x. writeBlobToTmpFile(...),writeTextToFile(...), writeBase64StrToTmpFile(...),
 readTmpFileAsText(...), readTmpFileAsBinaryString(...) etc.
+
+## Directories
+   fs.createDirectory('movies',function(er,directory)){...}
 
 ## To come
  - add method for deleting files/moving
