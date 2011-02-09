@@ -105,6 +105,18 @@ var fs = (function()
              callback(fs.BROWSER_NOT_SUPPORTED);
          }
      };
+     var _getFile=function(directory,fileName,callback)
+     {
+         directory.getFile(fileName,{create:true}, function(fileEntry)
+         {
+             callback(undefined,fileEntry);
+         },
+         function(err)
+         {
+             callback(err);
+         });
+     };
+
     var _createFile=function(fileName,callback,options)
 	{
 	    _getNativeFS(function(err,fs)
@@ -115,14 +127,7 @@ var fs = (function()
             }
             else
             {
-                fs.root.getFile(fileName,{create:true}, function(fileEntry)
-                {
-                    callback(undefined,fileEntry);
-                },
-                function(err)
-                {
-                    callback(err);
-                });
+                _getFile(fs.root,fileName,callback);
             }
 	    },options);
 	};
@@ -226,6 +231,11 @@ var fs = (function()
     };
 
 
+    var _getDirectory=function(directory,directoryName,callback)
+    {
+        callback(undefined,directory.getDirectory(directoryName,{create:true}));
+    };
+
     var _createDirectory=function(directoryName,callback,options)
     {
         _getNativeFS(function(err,fs)
@@ -236,11 +246,23 @@ var fs = (function()
             }
             else
             {
-                var directory=fs.root.getDirectory(directoryName,{create:true});
-                callback(directory);
+                _getDirectory(fs.root,directoryName,callback);
             }
         },options);
     };
+
+    var _readEntriesFromDirectory=function(directory,callback)
+    {
+        var directoryReader=directory.createReader();
+        directoryReader.readEntries(function(entries)
+        {
+            callback(undefined,entries);
+        },
+        function(error)
+        {
+            callback(error);
+        });
+    }
     return {
         /**
          * Configuration property. Indicates whether to use logging.

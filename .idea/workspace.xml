@@ -24,10 +24,10 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="fs.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="fs.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="415" column="61" selection-start="14234" selection-end="14234" vertical-scroll-proportion="0.0">
+            <state line="244" column="30" selection-start="7589" selection-end="7589" vertical-scroll-proportion="0.02972028">
               <folding />
             </state>
           </provider>
@@ -51,10 +51,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="58" selection-start="1872" selection-end="1872" vertical-scroll-proportion="0.6730769">
+            <state line="35" column="5" selection-start="1819" selection-end="1819" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -92,8 +92,8 @@
         <option value="C:/Users/apodvyaznikov/WebstormProjects/subtitler/manifest.json" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="C:/Users/apodvyaznikov/WebstormProjects/subtitler/js/fs.js" />
-        <option value="$PROJECT_DIR$/fs.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/fs.js" />
       </list>
     </option>
   </component>
@@ -306,16 +306,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs.js">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="415" column="61" selection-start="14234" selection-end="14234" vertical-scroll-proportion="0.0">
+        <state line="35" column="5" selection-start="1819" selection-end="1819" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="58" selection-start="1872" selection-end="1872" vertical-scroll-proportion="0.6730769">
+        <state line="244" column="30" selection-start="7589" selection-end="7589" vertical-scroll-proportion="0.02972028">
           <folding />
         </state>
       </provider>

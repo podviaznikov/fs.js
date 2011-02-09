@@ -33,7 +33,7 @@ E.x. writeBlobToTmpFile(...),writeTextToFile(...), writeBase64StrToTmpFile(...),
 readTmpFileAsText(...), readTmpFileAsBinaryString(...) etc.
 
 ## Directories
-   fs.createDirectory('movies',function(er,directory)){...}
+     fs.createDirectory('movies',function(er,directory)){...}
 
 ## To come
  - add method for deleting files/moving
