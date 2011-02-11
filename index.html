@@ -52,7 +52,7 @@ function handleFileSelect(files)
 
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
     }
-    var sizeInMB = (size/(1024*1014)).toFixed(1);
+    var sizeInMB = f.sizeInMB();
     document.getElementById('total_size').innerHTML = sizeInMB +' MB';
 }
 // Setup drag and drop zone

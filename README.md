@@ -1,7 +1,7 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.5.7 Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.5.8 Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
 ## Files
@@ -39,10 +39,10 @@ readTmpFileAsText(...), readTmpFileAsBinaryString(...) etc.
 Beside common IO operations with filesystem special module with some utilities was developed.
 
 Native File object was extended with
-  - shortName() - method for getting name of teh file without extension.
-  - extension() - method for getting extension of the file
-  - sizeInMB() - method for getting size of the file in the megabytes.
-  - sizeInGB() - method for getting size of the file in the gigabytes.
+ - shortName() - method for getting name of teh file without extension.
+ - extension() - method for getting extension of the file
+ - sizeInMB() - method for getting size of the file in the megabytes.
+ - sizeInGB() - method for getting size of the file in the gigabytes.
 
 To use this functionality please include fs.ext.js.
 
