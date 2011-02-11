@@ -41,6 +41,35 @@ Object.defineProperty(File.prototype,
         return this.name.substring(dotIndex);
     }
 });
+
+/**
+ * Method for getting size of the file in MB.
+ *
+ * @return size of the file in MB.
+ */
+Object.defineProperty(File.prototype,
+'sizeInMB',
+{
+    value:function()
+    {
+        var size = this.size;
+        return (size/(1024*1014)).toFixed(1);
+    }
+});
+/**
+ * Method for getting size of the file in GB.
+ *
+ * @return size of the file in GB.
+ */
+Object.defineProperty(File.prototype,
+'sizeInGB',
+{
+    value:function()
+    {
+        var size = this.size;
+        return (size/(1024*1014*1024)).toFixed(1);
+    }
+});
 /**
  * Method return readable explanation for the error codes.
  *

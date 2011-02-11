@@ -35,6 +35,17 @@ readTmpFileAsText(...), readTmpFileAsBinaryString(...) etc.
 ## Directories
      fs.createDirectory('movies',function(er,directory)){...}
 
+## Additions
+Beside common IO operations with filesystem special module with some utilities was developed.
+
+Native File object was extended with
+  - shortName() - method for getting name of teh file without extension.
+  - extension() - method for getting extension of the file
+  - sizeInMB() - method for getting size of the file in the megabytes.
+  - sizeInGB() - method for getting size of the file in the gigabytes.
+
+To use this functionality please include fs.ext.js.
+
 ## To come
  - add method for deleting files/moving
  - add method for renaming files
