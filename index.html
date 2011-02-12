@@ -22,6 +22,7 @@
         <li><p class="test-name">Create file:</p><button onclick="test6();">Run</button><p id="test6"></p></li>
         <li><p class="test-name">Write text to file:</p><button onclick="test7();">Run</button><p id="test7"></p></li>
         <li><p class="test-name">Write dataURL to file:</p><button onclick="test8();">Run</button><p id="test8"></p></li>
+        <li><p class="test-name">Read directory:</p><button onclick="test9();">Run</button><p id="test9"></p></li>
     </ul>
 </section>
 <script>
@@ -183,6 +184,29 @@ function test8()
         {
             console.log(data);
             document.getElementById('test8').innerText="Done";
+        }
+    });
+}
+
+function test9()
+{
+    fs.readRootDirectory(function(err,entries)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test9').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(entries);
+            var output=[];
+            for(var i=0;i<entries.length;i++)
+            {
+                var entry=entries[i];
+                output.push('<li><strong>', entry.name, '</strong>', ' - ',entry.size,'</li>');
+            }
+            document.getElementById('test9').innerHTML = '<ul>' + output.join('') + '</ul>';
         }
     });
 }

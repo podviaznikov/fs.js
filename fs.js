@@ -521,7 +521,38 @@ var fs = (function()
         writeBase64StrToTmpFile:function(fileName,content,contentType,callback)
         {
             _writeBase64StrToFile(fileName,content,contentType,callback,{tmp:true});
+        },
+        /*Directories*/
+        readDirectory:function(directoryName,callback)
+        {
+            _getDirectory(directoryName,function(err,directory)
+            {
+                if(err)
+                {
+                    callback(err);
+                }
+                else
+                {
+                    _readEntriesFromDirectory(directory,callback);        
+                }
+            },{});
+        },
+
+        readRootDirectory:function(callback)
+        {
+            _getNativeFS(function(err,fs)
+            {
+                if(err)
+                {
+                    callback(err);
+                }
+                else
+                {
+                    _readEntriesFromDirectory(fs.root,callback);        
+                }
+            },{});
         }
+
     }
 })();
 
