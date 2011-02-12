@@ -43,6 +43,20 @@ Object.defineProperty(File.prototype,
 });
 
 /**
+ * Method for getting size of the file in KB.
+ *
+ * @return size of the file in KB.
+ */
+Object.defineProperty(File.prototype,
+'sizeInKB',
+{
+    value:function()
+    {
+        var size = this.size;
+        return (size/(1014)).toFixed(1);
+    }
+});
+/**
  * Method for getting size of the file in MB.
  *
  * @return size of the file in MB.

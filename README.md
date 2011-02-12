@@ -1,7 +1,7 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.5.8 Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.5.9 Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
 ## Files
@@ -28,9 +28,16 @@ After application create just put test files from test_data folder into the file
 
 ## Temporary files
 Discussed read/write operations are used for persistent files. Almost same API works (method parameters are the same)
-for temporary files.
-E.x. writeBlobToTmpFile(...),writeTextToFile(...), writeBase64StrToTmpFile(...),
-readTmpFileAsText(...), readTmpFileAsBinaryString(...) etc.
+for temporary files. E.x.:
+
+    readTmpFileAsText(fileName,callback){...}
+    readTmpFileAsBinaryString(fileName,callback){...}
+    readTmpFileAsDataUrl(fileName,callback){...}
+    readTmpFileAsArrayBuffer(fileName,callback){...}
+    writeFileToTmpFile:function(file,callback){...}
+    writeBlobToTmpFile(fileName,blob,callback){...}
+    writeTextToFile(fileName,text,callback){...}
+    writeBase64StrToTmpFile(fileName,str,callback){...}
 
 ## Directories
      fs.createDirectory('movies',function(er,directory)){...}
@@ -42,6 +49,7 @@ Native File object was extended with:
 
  - shortName() - method for getting name of teh file without extension.
  - extension() - method for getting extension of the file
+ - sizeInKB() - method for getting size of the file in the kilobytes.
  - sizeInMB() - method for getting size of the file in the megabytes.
  - sizeInGB() - method for getting size of the file in the gigabytes.
 
