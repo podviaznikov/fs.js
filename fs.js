@@ -12,9 +12,16 @@
  * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 "use strict";
-var global = this; 
+var global = this;
 var fs = (function()
 {
+    var version='0.6.0';
+    var createBlob=function(content,contentType)
+    {
+        var blobBuilder = new BlobBuilder();
+        blobBuilder.append(content);
+        return blobBuilder.getBlob(contentType);
+    };
     /* PRIVATE METHODS.*/
      var _getNativeFS=function(callback,options)
      {
@@ -98,7 +105,7 @@ var fs = (function()
             {
                 arrayData[i] = encodedString.charCodeAt(i)
             }
-            callback(undefined,this.createBlob(arrayData.buffered,type));
+            callback(undefined,createBlob(arrayData.buffered,type));
          }
          else
          {
@@ -133,7 +140,7 @@ var fs = (function()
 	};
     var _writeBlobToFile=function(fileName,blob,callback,options)
     {
-        this.createFile(fileName,function(err,fileEntry)
+        _createFile(fileName,function(err,fileEntry)
         {
             fileEntry.createWriter(function(fileWriter)
             {
@@ -159,13 +166,13 @@ var fs = (function()
 
     var _writeTextToFile=function(fileName,text,callback,options)
     {
-        var blob = this.createBlob(text,'text/plain');
+        var blob = createBlob(text,'text/plain');
         _writeBlobToFile(fileName,blob,callback,options);
     };
 
     var _writeArrayBufferToFile=function(fileName,contentType,arrayBuffer,callback,options)
     {
-        var blob = this.createBlob(arrayBuffer,contentType);
+        var blob = createBlob(arrayBuffer,contentType);
         _writeBlobToFile(fileName,blob,callback,options);
     };
 
@@ -275,12 +282,6 @@ var fs = (function()
          */
         maxSize:5*1020*1024*1024,
 
-        createBlob:function(content,contentType)
-        {
-            var blobBuilder = new BlobBuilder();
-            blobBuilder.append(content);
-            return blobBuilder.getBlob(contentType);
-        },
         /* READING FILES*/
 
         /**
@@ -370,7 +371,7 @@ var fs = (function()
         {
             _readAsArrayBuffer(fileName,callback,{tmp:true});
         },
-        
+
 
         /**
          * Method reads content of the file as plain text.
@@ -401,7 +402,7 @@ var fs = (function()
                 reader.readAsDataURL(theFile);
             });
         },
-        
+
         /**
          * Method reads content of the file as array buffer.
          * @param fileName - name of the file in the file system.
@@ -435,7 +436,7 @@ var fs = (function()
 
         createTmpDirectory:function(directoryName,callback)
         {
-            _createDirectory(directoryName,callback,{tmp:true});  
+            _createDirectory(directoryName,callback,{tmp:true});
         },
 
         /* WRITING DATA*/
@@ -448,7 +449,7 @@ var fs = (function()
         {
             _writeFileToFile(file,callback,{tmp:true});
         },
-        
+
         /**
          * Method for writing blob to file.
          *
@@ -460,7 +461,7 @@ var fs = (function()
         {
             _writeBlobToFile(fileName,blob,callback,{});
         },
-        
+
         /**
          * Method for writing blob to temp file.
          *
@@ -533,7 +534,7 @@ var fs = (function()
                 }
                 else
                 {
-                    _readEntriesFromDirectory(directory,callback);        
+                    _readEntriesFromDirectory(directory,callback);
                 }
             },{});
         },
@@ -548,7 +549,7 @@ var fs = (function()
                 }
                 else
                 {
-                    _readEntriesFromDirectory(fs.root,callback);        
+                    _readEntriesFromDirectory(fs.root,callback);
                 }
             },{});
         }

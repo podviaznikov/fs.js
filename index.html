@@ -5,6 +5,7 @@
     <script src="fs.js"></script>
     <script src="fs.ext.js"></script>
     <script src="file.dnd.js"></script>
+    <script src="zip.js"></script>
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
@@ -32,13 +33,14 @@ function handleFileSelect(files)
     var size = 0;
     for (var i = 0, f; f = files[i]; i++)
     {
-        if (!f.type==='text/plain')
-        {
-            continue;
-        }
+//        if (!f.type==='text/plain')
+//        {
+//            continue;
+//        }
+
         size+=f.size;
         f.number=i;
-        output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
+        //output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
         fs.readFileAsText(f,function(err,data)
         {
             if(err)
@@ -47,6 +49,8 @@ function handleFileSelect(files)
             }
             else
             {
+                var x=zip_inflate(data);
+                console.log(x);
                 console.log(data);
             }            
         });

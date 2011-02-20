@@ -24,55 +24,28 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="file.dnd.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://C:/Enginimation/projects/watch.me.later/js/file.dnd.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="fs.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="540" column="25" selection-start="18348" selection-end="18365" vertical-scroll-proportion="0.0">
+            <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fs.ext.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fs.ext.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="43" selection-start="1839" selection-end="1839" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="0" selection-start="6296" selection-end="6296" vertical-scroll-proportion="-17.16">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="36" selection-start="314" selection-end="314" vertical-scroll-proportion="0.091726616">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manifest.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manifest.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.0">
+            <state line="11" column="9" selection-start="277" selection-end="277" vertical-scroll-proportion="0.35216573">
               <folding />
             </state>
           </provider>
@@ -100,9 +73,10 @@
         <option value="C:/Users/apodvyaznikov/WebstormProjects/subtitler/manifest.json" />
         <option value="C:/Users/apodvyaznikov/WebstormProjects/subtitler/js/fs.js" />
         <option value="$PROJECT_DIR$/fs.ext.js" />
-        <option value="$PROJECT_DIR$/fs.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/zip.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/fs.js" />
       </list>
     </option>
   </component>
@@ -161,11 +135,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Enginimation\projects\watch.me.later\js" />
+      <recent name="C:\Users\apodvyaznikov\WebstormProjects\zipper.js" />
+      <recent name="C:\tools\msysgit\msysgit\git\fs.js" />
       <recent name="C:\Users\apodvyaznikov\WebstormProjects\subtitler\js" />
       <recent name="C:\Users\apodvyaznikov\WebstormProjects\subtitler" />
-      <recent name="C:\Users\apodvyaznikov\WebstormProjects\subtitler\css" />
-      <recent name="C:\Users\apodvyaznikov\WebstormProjects\berzasoba\pasha" />
-      <recent name="C:\tools\msysgit\msysgit\git\fs.js\pasha" />
     </key>
   </component>
   <component name="RunManager">
@@ -211,11 +185,11 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23042169" sideWeight="0.65960914" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23042169" sideWeight="0.65960914" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -263,19 +237,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test_data/test.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="7" selection-end="7" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/file.dnd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="3" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/subtitler/js/file.dnd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/subtitler/css/styles.css">
@@ -288,47 +252,73 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/subtitler/js/fs.js">
+    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/subtitler/js/file.dnd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fs.ext.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="43" selection-start="1839" selection-end="1839" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/zipper.js/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/zipper.js/file.dnd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="21" selection-start="132" selection-end="143" vertical-scroll-proportion="0.02977233" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ZipFile.complete.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="164" column="2" selection-start="4453" selection-end="4453" vertical-scroll-proportion="0.02977233" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="30" selection-start="308" selection-end="314" vertical-scroll-proportion="0.03057554" />
+      </provider>
+    </entry>
+    <entry file="file://C:/Users/apodvyaznikov/WebstormProjects/zipper.js/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="0.05954466" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.35726795" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.0" />
+        <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.35726795" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs.ext.js">
+    <entry file="file://C:/Enginimation/projects/watch.me.later/js/file.dnd.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="43" selection-start="1839" selection-end="1839" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="0" selection-start="6296" selection-end="6296" vertical-scroll-proportion="-17.16">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="540" column="25" selection-start="18348" selection-end="18365" vertical-scroll-proportion="0.0">
+        <state line="0" column="3" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="36" selection-start="314" selection-end="314" vertical-scroll-proportion="0.091726616">
+        <state line="11" column="9" selection-start="277" selection-end="277" vertical-scroll-proportion="0.35216573">
           <folding />
         </state>
       </provider>
