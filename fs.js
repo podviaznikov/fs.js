@@ -90,7 +90,7 @@ var fs = (function()
          var reader = new FileReader();
          reader.onloadend = function(e)
          {
-             callback(undefined,this.result);
+             callback(undefined,this.result,file);
          };
          parentCallback(reader,file);
      };
@@ -552,6 +552,10 @@ var fs = (function()
                     _readEntriesFromDirectory(fs.root,callback);
                 }
             },{});
+        },
+        dataStringToBlob:function(content,contentType,callback)
+        {
+            _dataStringToBlob(content,contentType,callback);
         }
 
     }

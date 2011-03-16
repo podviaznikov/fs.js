@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>fs.js demo</title>
-    <script src="fs.js"></script>
+    <script src="fs.core.js"></script>
+    <script src="fs.util.js"></script>
+    <script src="fs.io.js"></script>
     <script src="fs.ext.js"></script>
     <script src="file.dnd.js"></script>
     <script src="zip.js"></script>
@@ -41,7 +43,7 @@ function handleFileSelect(files)
         size+=f.size;
         f.number=i;
         //output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
-        fs.readFileAsText(f,function(err,data)
+        fs.io.readFileAsText(f,function(err,data)
         {
             if(err)
             {
@@ -57,14 +59,12 @@ function handleFileSelect(files)
 
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
     }
-    var sizeInMB = f.sizeInMB();
-    document.getElementById('total_size').innerHTML = sizeInMB +' MB';
 }
 // Setup drag and drop zone
 var dropZone = new FileDropZone('drop_zone',handleFileSelect);    
 function test1()
 {
-    fs.readAsDataUrl('test.zip',function(err,data)
+    fs.io.readAsDataUrl('test.zip',function(err,data)
     {
         if(err)
         {
@@ -80,7 +80,7 @@ function test1()
 }
 function test2()
 {
-    fs.readAsText('test.txt',function(err,data)
+    fs.io.readAsText('test.txt',function(err,data)
     {
         if(err)
         {
@@ -96,7 +96,7 @@ function test2()
 }
 function test3()
 {
-    fs.readAsBinaryString('test.txt',function(err,data)
+    fs.io.readAsBinaryString('test.txt',function(err,data)
     {
         if(err)
         {
@@ -112,7 +112,7 @@ function test3()
 }
 function test4()
 {
-    fs.readAsArrayBuffer('test.txt',function(err,data)
+    fs.io.readAsArrayBuffer('test.txt',function(err,data)
     {
         if(err)
         {
@@ -128,7 +128,7 @@ function test4()
 }
 function test5()
 {
-    fs.readAsText('fake.file',function(err,data)
+    fs.io.readAsText('fake.file',function(err,data)
     {
         if(err)
         {
@@ -144,7 +144,7 @@ function test5()
 }
 function test6()
 {
-    fs.createFile('new_file.txt',function(err,data)
+    fs.io.createFile('new_file.txt',function(err,data)
     {
         if(err)
         {
@@ -160,7 +160,7 @@ function test6()
 }
 function test7()
 {
-    fs.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    fs.io.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {
@@ -177,7 +177,7 @@ function test7()
 function test8()
 {
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data)
+    fs.io.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data)
     {
         if(err)
         {
@@ -194,7 +194,7 @@ function test8()
 
 function test9()
 {
-    fs.readRootDirectory(function(err,entries)
+    fs.io.readRootDirectory(function(err,entries)
     {
         if(err)
         {
