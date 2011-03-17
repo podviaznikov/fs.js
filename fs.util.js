@@ -136,7 +136,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,content,contentType,callback,options)
         {
-            var blob = fs.dataStringToBlob(content,contentType);
+            var blob = fs.base64StringToBlob(content,contentType);
             this.writeBlobToFile(fileName,blob,callback,options);
         }
     },

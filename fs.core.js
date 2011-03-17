@@ -89,7 +89,7 @@ var fs=Object.create({},
             }
         }
     },
-    dataStringToBlob:
+    base64StringToBlob:
     {
         value:function(dataString,type)
         {
