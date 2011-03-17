@@ -100,14 +100,14 @@ var fs=Object.create({},
     {
         value:function(base64String,type)
         {
-            var encodedString = atob(base64String);
-            var dataLength = encodedString.length;
+            var decodedString  = atob(base64String);
+            var dataLength = decodedString .length;
             var arrayData = new Int8Array(dataLength);
             for(var i = 0; i < dataLength; i++)
             {
-                arrayData[i] = encodedString.charCodeAt(i)
+                arrayData[i] = decodedString .charCodeAt(i)
             }
-            return this.createBlob(arrayData.buffered,type);
+            return this.createBlob(arrayData.buffer,type);
         }
     }
 }
