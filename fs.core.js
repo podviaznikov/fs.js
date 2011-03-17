@@ -43,20 +43,7 @@ var fs=Object.create({},
      * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
      */
     BROWSER_NOT_SUPPORTED:{value:7},
-    /**
-     * Create blob for gien contetnt and content/type.
-     *
-     * @return blob.
-     */
-    createBlob:
-    {
-        value:function(content,contentType)
-        {
-            var blobBuilder = new BlobBuilder();
-            blobBuilder.append(content);
-            return blobBuilder.getBlob(contentType);
-        }
-    },
+
     /**
      * Get reference to the FileSystem.
      * @param callback with: error or FileSystem object
@@ -89,11 +76,31 @@ var fs=Object.create({},
             }
         }
     },
+    /**
+     * Create blob for gien contetnt and content/type.
+     *
+     * @return blob.
+     */
+    createBlob:
+    {
+        value:function(content,contentType)
+        {
+            var blobBuilder = new BlobBuilder();
+            blobBuilder.append(content);
+            return blobBuilder.getBlob(contentType);
+        }
+    },
+    /**
+     * Method for converting base64 string to blob.
+     * @param base64String - string that should be converted.
+     * @param type - content type for the blob.     
+     * @return blob converted from original content.
+     */
     base64StringToBlob:
     {
-        value:function(dataString,type)
+        value:function(base64String,type)
         {
-            var encodedString = atob(dataString);
+            var encodedString = atob(base64String);
             var dataLength = encodedString.length;
             var arrayData = new Int8Array(dataLength);
             for(var i = 0; i < dataLength; i++)
