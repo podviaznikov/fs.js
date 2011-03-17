@@ -1,12 +1,12 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.8.0. Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.8.1. Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
-## Convetions
-Basically most of the method from the public API follow this convetion:
-last parameter of the methiod should be callback. Callback has two parameters:
+## Rules
+Basically most of the method from the public API follow this rule:
+last parameter of the method should be callback. Callback has two parameters:
 	error - if error is not undefined something wrong has gone. Error code can be retrieved
 	success - if there were no error you can use method result. Depending on the method it can be file content, file list etc.
 
@@ -24,29 +24,29 @@ To test it's functionality you can checkout whole project. Install it as Google 
 After application create just put test files from test_data folder into the file system folder for your application.
 
 ## Read files
-    fs.io.readFileAsText('test.txt',function(err,data){...}
-    fs.io.readFileAsDataUrl('test.zip',function(err,data){...}
-    fs.io.readFileAsBinaryString('test.txt',function(err,data){...}
-    fs.io.readFileAsArrayBuffer('test.txt',function(err,data){...}
+    fs.read.fileAsText('test.txt',function(err,data){...}
+    fs.read.fileAsDataUrl('test.zip',function(err,data){...}
+    fs.read.fileAsBinaryString('test.txt',function(err,data){...}
+    fs.read.fileAsArrayBuffer('test.txt',function(err,data){...}
 
 ## Write files
-    fs.io.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
+    fs.write.textToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
 
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.io.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data){...}
+    fs.write.base64StrToFile('base64.zip',content,'application/zip',function(err,data){...}
 
 ## Temporary files
 Discussed read/write operations are used for persistent files. Almost same API works (method parameters are the same)
 for temporary files. E.x.:
 
-    readTmpFileAsText(fileName,callback){...}
-    readTmpFileAsBinaryString(fileName,callback){...}
-    readTmpFileAsDataUrl(fileName,callback){...}
-    readTmpFileAsArrayBuffer(fileName,callback){...}
-    writeFileToTmpFile:function(file,callback){...}
-    writeBlobToTmpFile(fileName,blob,callback){...}
-    writeTextToFile(fileName,text,callback){...}
-    writeBase64StrToTmpFile(fileName,str,callback){...}
+    fs.read.tmpFileAsText(fileName,callback){...}
+    fs.read.tmpFileAsBinaryString(fileName,callback){...}
+    fs.read.tmpFileAsDataUrl(fileName,callback){...}
+    fs.read.tmpFileAsArrayBuffer(fileName,callback){...}
+    fs.write.fileToTmpFile:function(file,callback){...}
+    fs.write.blobToTmpFile(fileName,blob,callback){...}
+    fs.write.textToFile(fileName,text,callback){...}
+    fs.write.base64StrToTmpFile(fileName,str,callback){...}
 
 ## Directories
      fs.io.createDirectory('movies',function(er,directory)){...}

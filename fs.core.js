@@ -18,17 +18,17 @@ var fs=Object.create({},
     /**
      * Version of the lib
      */
-    version:{value:'0.8.0'},
+    version:{value:'0.8.1'},
     /**
      * Configuration property. Indicates whether to use logging.
      * Default value is <code>false</code> but can be changed.
      */
-    log:{value:false},
+    log:{value:false,writable:true},
     /**
      * Configuration property. Specifies the size of preserved space in file system.
      * Default value is 5 GB but can be changed.
      */
-    maxSize:{value:5*1020*1024*1024},
+    maxSize:{value:5*1020*1024*1024,writable:true},
     /**
      * Define custom error code. This error code used when file is expected but
      * folder was gotten.

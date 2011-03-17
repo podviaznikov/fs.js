@@ -5,6 +5,8 @@
     <script src="fs.core.js"></script>
     <script src="fs.util.js"></script>
     <script src="fs.io.js"></script>
+    <script src="fs.reader.js"></script>
+    <script src="fs.writer.js"></script>
     <script src="fs.ext.js"></script>
     <script src="file.dnd.js"></script>
     <script src="zip.js"></script>
@@ -43,7 +45,7 @@ function handleFileSelect(files)
         size+=f.size;
         f.number=i;
         //output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
-        fs.io.readFileAsText(f,function(err,data)
+        fs.read.fileAsText(f,function(err,data)
         {
             if(err)
             {
@@ -64,7 +66,7 @@ function handleFileSelect(files)
 var dropZone = new FileDropZone('drop_zone',handleFileSelect);    
 function test1()
 {
-    fs.io.readAsDataUrl('test.zip',function(err,data)
+    fs.read.asDataUrl('test.zip',function(err,data)
     {
         if(err)
         {
@@ -80,7 +82,7 @@ function test1()
 }
 function test2()
 {
-    fs.io.readAsText('test.txt',function(err,data)
+    fs.read.asText('test.txt',function(err,data)
     {
         if(err)
         {
@@ -96,7 +98,7 @@ function test2()
 }
 function test3()
 {
-    fs.io.readAsBinaryString('test.txt',function(err,data)
+    fs.read.asBinaryString('test.txt',function(err,data)
     {
         if(err)
         {
@@ -112,7 +114,7 @@ function test3()
 }
 function test4()
 {
-    fs.io.readAsArrayBuffer('test.txt',function(err,data)
+    fs.read.asArrayBuffer('test.txt',function(err,data)
     {
         if(err)
         {
@@ -128,7 +130,7 @@ function test4()
 }
 function test5()
 {
-    fs.io.readAsText('fake.file',function(err,data)
+    fs.read.asText('fake.file',function(err,data)
     {
         if(err)
         {
@@ -160,7 +162,7 @@ function test6()
 }
 function test7()
 {
-    fs.io.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    fs.write.textToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {
@@ -177,7 +179,7 @@ function test7()
 function test8()
 {
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.io.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data)
+    fs.write.base64StrToFile('base64.zip',content,'application/zip',function(err,data)
     {
         if(err)
         {
