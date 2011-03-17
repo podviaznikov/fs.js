@@ -1,12 +1,21 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.5.10. Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.8.0. Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
+
+## Convetions
+Basically most of the method from the public API follow this convetion:
+last parameter of the methiod should be callback. Callback has two parameters:
+	error - if error is not undefined something wrong has gone. Error code can be retrieved
+	success - if there were no error you can use method result. Depending on the method it can be file content, file list etc.
+
 
 ## Files
 
- - fs.js - is the library file itself.
+ - fs.core.js - core library file. Namespace is fs.
+ - fs.util.js - low level method are in this file. Namespace is fs.util.
+ - fs.io.js - basic API for dealing with files and directories. Namespace is fs.io.
  - index.html - page used for tests.
  - manifest.json - manifest file for the Chrome Web App.
  - test_data - some files that can be used for tests.
@@ -15,16 +24,16 @@ To test it's functionality you can checkout whole project. Install it as Google 
 After application create just put test files from test_data folder into the file system folder for your application.
 
 ## Read files
-    fs.readFileAsText('test.txt',function(err,data){...}
-    fs.readFileAsDataUrl('test.zip',function(err,data){...}
-    fs.readFileAsBinaryString('test.txt',function(err,data){...}
-    fs.readFileAsArrayBuffer('test.txt',function(err,data){...}
+    fs.io.readFileAsText('test.txt',function(err,data){...}
+    fs.io.readFileAsDataUrl('test.zip',function(err,data){...}
+    fs.io.readFileAsBinaryString('test.txt',function(err,data){...}
+    fs.io.readFileAsArrayBuffer('test.txt',function(err,data){...}
 
 ## Write files
-    fs.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
+    fs.io.writeTextToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
 
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data){...}
+    fs.io.writeBase64StrToFile('base64.zip',content,'application/zip',function(err,data){...}
 
 ## Temporary files
 Discussed read/write operations are used for persistent files. Almost same API works (method parameters are the same)
@@ -40,9 +49,9 @@ for temporary files. E.x.:
     writeBase64StrToTmpFile(fileName,str,callback){...}
 
 ## Directories
-     fs.createDirectory('movies',function(er,directory)){...}
-     fs.readRootDirectory(function(er,entries)){...}
-     fs.readDirectory(directoryName,function(er,entries)){...}
+     fs.io.createDirectory('movies',function(er,directory)){...}
+     fs.io.readRootDirectory(function(er,entries)){...}
+     fs.io.readDirectory(directoryName,function(er,entries)){...}
 
 ## Additions
 Beside common IO operations with filesystem special module with some utilities was developed.
