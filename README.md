@@ -16,6 +16,8 @@ last parameter of the method should be callback. Callback has two parameters:
  - fs.core.js - core library file. Namespace is fs.
  - fs.util.js - low level method are in this file. Namespace is fs.util.
  - fs.io.js - basic API for dealing with files and directories. Namespace is fs.io.
+ - fs.reader.js - basic API for reading files. Namespace is fs.read.
+ - fs.writer.js - basic API for writing to files. Namespace is fs.write.
  - index.html - page used for tests.
  - manifest.json - manifest file for the Chrome Web App.
  - test_data - some files that can be used for tests.
@@ -49,7 +51,7 @@ for temporary files. E.x.:
     fs.write.base64StrToTmpFile(fileName,str,callback){...}
 
 ## Directories
-     fs.io.createDirectory('movies',function(er,directory)){...}
+     fs.io.createDirectory(directoryName,function(er,directory)){...}
      fs.io.readRootDirectory(function(er,entries)){...}
      fs.io.readDirectory(directoryName,function(er,entries)){...}
 
