@@ -31,7 +31,7 @@ fs.util= Object.create({},
             {
                 callback(undefined,this.result,initialFile);
             };
-            readerHandler(reader,initialFile);
+            reader[readerHandler](initialFile);
         }
     },
 
@@ -58,7 +58,7 @@ fs.util= Object.create({},
         }
     },
 
-    createDirectory:
+    getDirectoryFromRoot:
     {
         value:function(directoryName,callback,options)
         {
@@ -85,11 +85,7 @@ fs.util= Object.create({},
     {
         value:function(file,callback)
         {
-            //todo (anton). check how to pass just name of the method 'readAsArrayBuffer'.
-            this.getReader(file,callback,function(reader,theFile)
-            {
-                reader.readAsArrayBuffer(theFile);
-            });
+            this.getReader(file,callback,'readAsArrayBuffer');
         }
     },
 
@@ -98,10 +94,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,callback,options)
         {
-            this.getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsBinaryString(file);
-            },options);
+            this.getReaderUsingFileName(fileName,callback,'readAsBinaryString',options);
         }
     },
 
@@ -109,10 +102,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,callback,options)
         {
-            this.getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsArrayBuffer(file);
-            },options);
+            this.getReaderUsingFileName(fileName,callback,'readAsArrayBuffer',options);
         }
     },
 
@@ -145,10 +135,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,callback,options)
         {
-            this.getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsDataURL(file);
-            },options);
+            this.getReaderUsingFileName(fileName,callback,'readAsDataURL',options);
         }
     },
 
@@ -156,10 +143,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,callback,options)
         {
-            this.getReaderUsingFileName(fileName,callback,function(reader,file)
-            {
-                reader.readAsText(file);
-            },options);
+            this.getReaderUsingFileName(fileName,callback,'readAsText',options);
         }
     },
 
@@ -167,7 +151,7 @@ fs.util= Object.create({},
     {
         value:function(fileName,blob,callback,options)
         {
-            this.createFile(fileName,function(err,fileEntry)
+            this.getFileFromRoot(fileName,function(err,fileEntry)
             {
                 fileEntry.createWriter(function(fileWriter)
                 {
@@ -268,7 +252,7 @@ fs.util= Object.create({},
         }
     },
 
-    createFile:
+    getFileFromRoot:
     {
         value:function(fileName,callback,options)
         {

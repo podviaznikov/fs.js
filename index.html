@@ -146,7 +146,7 @@ function test5()
 }
 function test6()
 {
-    fs.io.createFile('new_file.txt',function(err,data)
+    fs.io.getFileFromRoot('new_file.txt',function(err,data)
     {
         if(err)
         {

@@ -22,14 +22,14 @@ fs.io = Object.create({},
     {
         value:function(fileName,callback)
         {
-            fs.util.createFile(fileName,callback,{});
+            fs.util.getFileFromRoot(fileName,callback,{});
         }
     },
     createTmpFile:
     {
         value:function(fileName,callback)
         {
-            fs.util.createFile(fileName,callback,{tmp:true});
+            fs.util.getFileFromRoot(fileName,callback,{tmp:true});
         }
     },
 
@@ -37,7 +37,7 @@ fs.io = Object.create({},
     {
         value:function(directoryName,callback)
         {
-            fs.util.createDirectory(directoryName,callback,{});
+            fs.util.getDirectoryFromRoot(directoryName,callback,{});
         }
     },
 
@@ -45,7 +45,7 @@ fs.io = Object.create({},
     {
         value:function(directoryName,callback)
         {
-            fs.util.createDirectory(directoryName,callback,{tmp:true});
+            fs.util.getDirectoryFromRoot(directoryName,callback,{tmp:true});
         }
     },
 
