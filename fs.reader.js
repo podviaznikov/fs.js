@@ -138,10 +138,7 @@ fs.read = Object.create({},
     {
         value:function(file,callback)
         {
-            fs.util.getReader(file,callback,function(reader,theFile)
-            {
-                reader.readAsText(theFile);
-            });
+            fs.util.getReader(file,callback,'readAsText');
         }
     },
 
@@ -155,17 +152,14 @@ fs.read = Object.create({},
     {
         value:function(file,callback)
         {
-            fs.util.getReader(file,callback,function(reader,theFile)
-            {
-                reader.readAsDataURL(theFile);
-            });
+            fs.util.getReader(file,callback,'readAsDataURL');
         }
     },
 
     /**
      * Method reads content of the file as array buffer.
-     * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+     * @param file - file to be read.
+     * @param callback - callback after operation is done. Has 2 parameters: error and array buffer.
      * Before using array buffer user should check whether error happened.
      */
     fileAsArrayBuffer:
@@ -173,6 +167,20 @@ fs.read = Object.create({},
         value:function(file,callback)
         {
             fs.util.readFileAsArrayBuffer(file,callback);
+        }
+    },
+
+     /**
+     * Method reads content of the file as binary string.
+     * @param file - file to be read.
+     * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
+     * Before using binary string user should check whether error happened.
+     */
+    fileAsBinaryString:
+    {
+        value:function(file,callback)
+        {
+            fs.util.readFileAsBinaryString(file,callback);
         }
     }
 });

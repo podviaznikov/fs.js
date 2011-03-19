@@ -77,7 +77,7 @@ var fs=Object.create({},
         }
     },
     /**
-     * Create blob for gien contetnt and content/type.
+     * Create blob for given content and content/type.
      *
      * @return blob.
      */

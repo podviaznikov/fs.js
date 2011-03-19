@@ -10,7 +10,6 @@ last parameter of the method should be callback. Callback has two parameters:
 	error - if error is not undefined something wrong has gone. Error code can be retrieved
 	success - if there were no error you can use method result. Depending on the method it can be file content, file list etc.
 
-
 ## Files
 
  - fs.core.js - core library file. Namespace is fs.

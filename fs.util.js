@@ -23,7 +23,7 @@ fs.util= Object.create({},
     */
     getReader:
     {
-        value:function(file,callback,readerHandler)
+        value:function(file,callback,readerMethod)
         {
             var reader = new FileReader();
             var initialFile = file;
@@ -31,7 +31,7 @@ fs.util= Object.create({},
             {
                 callback(undefined,this.result,initialFile);
             };
-            reader[readerHandler](initialFile);
+            reader[readerMethod](initialFile);
         }
     },
 
@@ -75,10 +75,17 @@ fs.util= Object.create({},
             },options);
         }
     },
+    readAsArrayBuffer:
+    {
+        value:function(fileName,callback,options)
+        {
+            this.getReaderUsingFileName(fileName,callback,'readAsArrayBuffer',options);
+        }
+    },
     /**
      * Method reads content of the file as array buffer.
-     * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+     * @param file - file to be read.
+     * @param callback - callback after operation is done. Has 2 parameters: error and array buffer.
      * Before using array buffer user should check whether error happened.
      */
     readFileAsArrayBuffer:
@@ -89,7 +96,6 @@ fs.util= Object.create({},
         }
     },
 
-
     readAsBinaryString:
     {
         value:function(fileName,callback,options)
@@ -98,13 +104,20 @@ fs.util= Object.create({},
         }
     },
 
-    readAsArrayBuffer:
+    /**
+     * Method reads content of the file as binary string.
+     * @param file - file to be read.
+     * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
+     * Before using binary string user should check whether error happened.
+     */
+    readFileAsBinaryString:
     {
-        value:function(fileName,callback,options)
+        value:function(file,callback)
         {
-            this.getReaderUsingFileName(fileName,callback,'readAsArrayBuffer',options);
+            this.getReader(file,callback,'readAsBinaryString');
         }
     },
+
 
     readEntriesFromDirectory:
     {
@@ -157,7 +170,7 @@ fs.util= Object.create({},
                 {
                    fileWriter.onwriteend = function(e)
                    {
-                       //do nothing after success. Pass nothing to success parameter of the callback
+                       callback(undefined);
                    };
 
                    fileWriter.onerror = function(e)
@@ -197,7 +210,7 @@ fs.util= Object.create({},
     {
         value:function(file,callback,options)
         {
-            this.readFileAsArrayBuffer(file,function(err,arrayBuffer)
+            this.readFileAsArrayBuffer(file,function(err,arrayBuffer,initialFile)
             {
                 if(err)
                 {
@@ -205,7 +218,7 @@ fs.util= Object.create({},
                 }
                 else
                 {
-                    fs.util.writeArrayBufferToFile(file.name,file.type,arrayBuffer,callback,options);
+                    fs.util.writeArrayBufferToFile(initialFile.name,file.type,arrayBuffer,callback,options);
                 }
             });
         }
@@ -213,7 +226,7 @@ fs.util= Object.create({},
 
     getReaderUsingFileName:
     {
-        value:function(fileName,callback,parentCallback,options)
+        value:function(fileName,callback,readerMethod,options)
         {
             fs.getNativeFS(function(err,filesystem)
             {
@@ -231,7 +244,7 @@ fs.util= Object.create({},
                             // then use FileReader to read its contents.
                             fileEntry.file(function(file)
                             {
-                                fs.util.getReader(file,callback,parentCallback);
+                                fs.util.getReader(file,callback,readerMethod);
                             },
                             function(error)
                             {
