@@ -1,7 +1,7 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.8.2. Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.8.3. Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
 ## Rules
@@ -31,10 +31,10 @@ After application create just put test files from test_data folder into the file
     fs.read.fileAsArrayBuffer('test.txt',function(err,data){...}
 
 ## Write files
-    fs.write.textToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...}
+    fs.write.text('new_file_with_text.txt','Line1\r\nLine2',function(err,data){...});
 
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.write.base64StrToFile('base64.zip',content,'application/zip',function(err,data){...}
+    fs.write.base64Str('base64.zip',content,'application/zip',function(err,data){...});
 
 ## Temporary files
 Discussed read/write operations are used for persistent files. Almost same API works (method parameters are the same)
@@ -44,10 +44,10 @@ for temporary files. E.x.:
     fs.read.tmpFileAsBinaryString(fileName,callback){...}
     fs.read.tmpFileAsDataUrl(fileName,callback){...}
     fs.read.tmpFileAsArrayBuffer(fileName,callback){...}
-    fs.write.fileToTmpFile:function(file,callback){...}
-    fs.write.blobToTmpFile(fileName,blob,callback){...}
-    fs.write.textToFile(fileName,text,callback){...}
-    fs.write.base64StrToTmpFile(fileName,str,callback){...}
+    fs.write.file:function(file,callback,filename){...}
+    fs.write.blob(fileName,blob,callback){...}
+    fs.write.text(fileName,text,callback){...}
+    fs.write.base64Str(fileName,str,callback){...}
 
 ## Directories
      fs.io.createDirectory(directoryName,function(er,directory)){...}

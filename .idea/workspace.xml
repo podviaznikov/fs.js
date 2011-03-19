@@ -67,7 +67,7 @@
       <file leaf-file-name="fs.util.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs.util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="172" column="43" selection-start="5564" selection-end="5564" vertical-scroll-proportion="0.6627907">
+            <state line="287" column="0" selection-start="8744" selection-end="8744" vertical-scroll-proportion="0.9612546">
               <folding />
             </state>
           </provider>
@@ -94,7 +94,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="25" selection-start="4693" selection-end="4693" vertical-scroll-proportion="-18.538462">
+            <state line="221" column="0" selection-start="6481" selection-end="6481" vertical-scroll-proportion="-18.538462">
               <folding />
             </state>
           </provider>
@@ -103,7 +103,16 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="0" selection-start="5011" selection-end="5011" vertical-scroll-proportion="0.0">
+            <state line="3" column="35" selection-start="313" selection-end="313" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manifest.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manifest.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -112,7 +121,7 @@
       <file leaf-file-name="fs.writer.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fs.writer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="5" selection-start="4360" selection-end="4360" vertical-scroll-proportion="0.0">
+            <state line="140" column="0" selection-start="4897" selection-end="4897" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,7 +130,7 @@
       <file leaf-file-name="fs.core.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fs.core.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="45" selection-start="3902" selection-end="3902" vertical-scroll-proportion="0.0">
+            <state line="20" column="32" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -150,11 +159,11 @@
         <option value="$PROJECT_DIR$/fs.ext.js" />
         <option value="$PROJECT_DIR$/zip.js" />
         <option value="$PROJECT_DIR$/fs.js" />
+        <option value="$PROJECT_DIR$/fs.io.js" />
+        <option value="$PROJECT_DIR$/fs.reader.js" />
         <option value="$PROJECT_DIR$/fs.writer.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/fs.io.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/fs.reader.js" />
         <option value="$PROJECT_DIR$/fs.core.js" />
         <option value="$PROJECT_DIR$/fs.util.js" />
       </list>
@@ -337,11 +346,6 @@
         <state line="12" column="29" selection-start="218" selection-end="226" vertical-scroll-proportion="0.35726795" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.35726795" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ZipFile.complete.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0" />
@@ -357,9 +361,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/fs.reader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="25" selection-start="4693" selection-end="4693" vertical-scroll-proportion="-18.538462">
+        <state line="168" column="20" selection-start="6166" selection-end="6166" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -371,35 +375,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="0" selection-start="6481" selection-end="6481" vertical-scroll-proportion="-18.538462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="208" selection-end="253" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="0" selection-start="5011" selection-end="5011" vertical-scroll-proportion="0.0">
+        <state line="3" column="35" selection-start="313" selection-end="313" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="45" selection-start="3902" selection-end="3902" vertical-scroll-proportion="0.0">
+        <state line="20" column="32" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.writer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="5" selection-start="4360" selection-end="4360" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fs.reader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="20" selection-start="6166" selection-end="6166" vertical-scroll-proportion="0.0">
+        <state line="140" column="0" selection-start="4897" selection-end="4897" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs.util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="172" column="43" selection-start="5564" selection-end="5564" vertical-scroll-proportion="0.6627907">
+        <state line="287" column="0" selection-start="8744" selection-end="8744" vertical-scroll-proportion="0.9612546">
           <folding />
         </state>
       </provider>

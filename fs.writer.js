@@ -15,17 +15,31 @@
 var global = this;
 fs.write = Object.create({},
 {
-    fileToFile:
+    /**
+     * Method for file object to file in the filesystem.
+     *
+     * @param file - file to be saved on the filesystem.
+     * @param callback - callback with error parameter if something went wrong.
+     * @param fileName - name of the file.
+     */
+    file:
     {
-        value:function(file,callback)
+        value:function(file,callback,filename)
         {
-            fs.util.writeFileToFile(file,callback,{});
+            fs.util.writeFileToFile(file,callback,{filename:filename});
         }
     },
 
+    /**
+     * Method for file object to file in the filesystem.
+     *
+     * @param file - file to be saved on the filesystem.
+     * @param callback - callback with error parameter if something went wrong.
+     * @param fileName - name of the file.
+     */
     fileToTmpFile:
     {
-        value:function(file,callback)
+        value:function(file,callback,filename)
         {
             fs.util.writeFileToFile(file,callback,{tmp:true});
         }
@@ -38,7 +52,7 @@ fs.write = Object.create({},
      * @param blob - content of the file.
      * @param callback - callback after execution may contain only one parameter: error.
      */
-    blobToFile:
+    blob:
     {
         value:function(fileName,blob,callback)
         {
@@ -68,7 +82,7 @@ fs.write = Object.create({},
      * @param text - text (multi line using \r\n) that should be written.
      * @param callback - callback with error parameter if something went wrong.
      */
-    textToFile:
+    text:
     {
         value:function(fileName,text,callback)
         {
@@ -99,7 +113,7 @@ fs.write = Object.create({},
      * @param contentType - content type.
      * @param callback - callback with error parameter if something went wrong.
      */
-    base64StrToFile:
+    base64Str:
     {
         value:function(fileName,content,contentType,callback)
         {

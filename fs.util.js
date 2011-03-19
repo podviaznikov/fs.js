@@ -135,15 +135,6 @@ fs.util= Object.create({},
         }
     },
 
-    writeBase64StrToFile:
-    {
-        value:function(fileName,content,contentType,callback,options)
-        {
-            var blob = fs.base64StringToBlob(content,contentType);
-            this.writeBlobToFile(fileName,blob,callback,options);
-        }
-    },
-
     readAsDataUrl:
     {
         value:function(fileName,callback,options)
@@ -157,6 +148,15 @@ fs.util= Object.create({},
         value:function(fileName,callback,options)
         {
             this.getReaderUsingFileName(fileName,callback,'readAsText',options);
+        }
+    },
+
+    writeBase64StrToFile:
+    {
+        value:function(fileName,content,contentType,callback,options)
+        {
+            var blob = fs.base64StringToBlob(content,contentType);
+            this.writeBlobToFile(fileName,blob,callback,options);
         }
     },
 
@@ -218,7 +218,8 @@ fs.util= Object.create({},
                 }
                 else
                 {
-                    fs.util.writeArrayBufferToFile(initialFile.name,file.type,arrayBuffer,callback,options);
+                    var filename = options.filename||initialFile.name;
+                    fs.util.writeArrayBufferToFile(filename,file.type,arrayBuffer,callback,options);
                 }
             });
         }

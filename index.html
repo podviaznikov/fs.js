@@ -162,7 +162,7 @@ function test6()
 }
 function test7()
 {
-    fs.write.textToFile('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    fs.write.text('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {
@@ -179,7 +179,7 @@ function test7()
 function test8()
 {
     var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
-    fs.write.base64StrToFile('base64.zip',content,'application/zip',function(err,data)
+    fs.write.base64Str('base64.zip',content,'application/zip',function(err,data)
     {
         if(err)
         {
