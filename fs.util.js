@@ -75,6 +75,23 @@ fs.util= Object.create({},
             },options);
         }
     },
+
+    readEntriesFromDirectory:
+    {
+        value:function(directory,callback)
+        {
+            var directoryReader=directory.createReader();
+            directoryReader.readEntries(function(entries)
+            {
+                callback(undefined,entries);
+            },
+            function(error)
+            {
+                callback(error);
+            });
+        }
+    },
+
     readAsArrayBuffer:
     {
         value:function(fileName,callback,options)
@@ -119,21 +136,6 @@ fs.util= Object.create({},
     },
 
 
-    readEntriesFromDirectory:
-    {
-        value:function(directory,callback)
-        {
-            var directoryReader=directory.createReader();
-            directoryReader.readEntries(function(entries)
-            {
-                callback(undefined,entries);
-            },
-            function(error)
-            {
-                callback(error);
-            });
-        }
-    },
 
     readAsDataUrl:
     {
@@ -304,6 +306,23 @@ fs.util= Object.create({},
         value:function(url)
         {
             global.webkitURL.revokeObjectURL(url);
+        }
+    },
+
+    remove:
+    {
+        value:function(filename,callback)
+        {
+            this.getFileFromRoot(filename,function(err,fileEntry)
+            {
+                fileEntry.remove(function()
+                {
+                    callback(undefined);
+                },function(e)
+                {
+                    callback(e);
+                });
+            });
         }
     }
 
