@@ -282,6 +282,29 @@ fs.util= Object.create({},
                 }
             },options);
         }
+    },
+
+    createFileURL:
+    {
+        value:function(filename,callback)
+        {
+            fs.util.getFileFromRoot(filename,function(er,fileEntry)
+            {
+                fileEntry.file(function(file)
+                {
+                    //todo fix this webkit name
+                    var url=global.webkitURL.createObjectURL(file);
+                    callback(url);
+                });
+            });
+        }
+    },
+    destroyFileURL:
+    {
+        value:function(url)
+        {
+            global.webkitURL.revokeObjectURL(url);
+        }
     }
 
 });

@@ -18,7 +18,7 @@ var fs=Object.create({},
     /**
      * Version of the lib
      */
-    version:{value:'0.8.3'},
+    version:{value:'0.8.4'},
     /**
      * Configuration property. Indicates whether to use logging.
      * Default value is <code>false</code> but can be changed.
