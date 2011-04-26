@@ -13,12 +13,16 @@
  */
 "use strict";
 var global = this;
+var requestFileSystem = global.requestFileSystem || global.webkitRequestFileSystem;
+var BlobBuilder = global.BlobBuilder || global.WebKitBlobBuilder;
+var resolveLocalFileSystemURL = global.resolveLocalFileSystemURL || global.webkitResolveLocalFileSystemURL;
+var fsURL = global.URL || global.webkitURL;
 var fs=Object.create({},
 {
     /**
      * Version of the lib
      */
-    version:{value:'0.8.4'},
+    version:{value:'0.8.6'},
     /**
      * Configuration property. Indicates whether to use logging.
      * Default value is <code>false</code> but can be changed.
@@ -53,14 +57,14 @@ var fs=Object.create({},
     {
         value:function(callback,options)
         {
-            if (global.requestFileSystem)
+            if (requestFileSystem)
             {
                 var scope = global.PERSISTENT;
                 if(options && options.tmp)
                 {
                     scope = global.TEMPORARY;
                 }
-                global.requestFileSystem(scope, this.maxSize, function(fs)
+                requestFileSystem(scope, this.maxSize, function(fs)
                 {
                     callback(undefined,fs);
                 },

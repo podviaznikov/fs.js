@@ -6,6 +6,7 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="IdProvider" IDEtalkID="F558279ADACB11373A1DA803D8436C37" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
     <option name="OPTION_SCOPE" value="protected" />
@@ -143,6 +144,7 @@
     <option name="FORCE_UPDATE" value="false" />
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
+  <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">

@@ -135,8 +135,6 @@ fs.util= Object.create({},
         }
     },
 
-
-
     readAsDataUrl:
     {
         value:function(fileName,callback,options)
@@ -168,24 +166,31 @@ fs.util= Object.create({},
         {
             this.getFileFromRoot(fileName,function(err,fileEntry)
             {
-                fileEntry.createWriter(function(fileWriter)
-                {
-                   fileWriter.onwriteend = function(e)
-                   {
-                       callback(undefined);
-                   };
-
-                   fileWriter.onerror = function(e)
-                   {
-                       callback(e);
-                   };
-
-                   fileWriter.write(blob);
-                },
-                function(err)
+                if(err)
                 {
                     callback(err);
-                });
+                }
+                else
+                {
+                    fileEntry.createWriter(function(fileWriter)
+                    {
+                       fileWriter.onwriteend = function(e)
+                       {
+                           callback(undefined);
+                       };
+
+                       fileWriter.onerror = function(e)
+                       {
+                           callback(e);
+                       };
+
+                       fileWriter.write(blob);
+                    },
+                    function(err)
+                    {
+                        callback(err);
+                    });
+                }
             },options);
         }
     },
@@ -294,8 +299,7 @@ fs.util= Object.create({},
             {
                 fileEntry.file(function(file)
                 {
-                    //todo fix this webkit name
-                    var url=global.webkitURL.createObjectURL(file);
+                    var url=fsURL.createObjectURL(file);
                     callback(url);
                 });
             });
@@ -305,7 +309,7 @@ fs.util= Object.create({},
     {
         value:function(url)
         {
-            global.webkitURL.revokeObjectURL(url);
+            fsURL.revokeObjectURL(url);
         }
     },
 
