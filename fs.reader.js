@@ -12,7 +12,6 @@
  * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 "use strict";
-var global = this;
 fs.read = Object.create({},
 {
     /**
@@ -102,7 +101,7 @@ fs.read = Object.create({},
     /**
      * Method reads content of the file as array buffer.
      * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+     * @param callback - callback after operation is done. Has 2 parameters: error and  array buffer.
      * Before using array buffer user should check whether error happened.
      */
     asArrayBuffer:
@@ -116,7 +115,7 @@ fs.read = Object.create({},
     /**
      * Method reads content of the temporary file as array buffer.
      * @param fileName - name of the file in the file system.
-     * @param callback - callback after operation is done. Has 2 parameters: error and dataURL.
+     * @param callback - callback after operation is done. Has 2 parameters: error and array buffer.
      * Before using array buffer user should check whether error happened.
      */
     tmpFileAsArrayBuffer:

@@ -13,6 +13,7 @@
  */
 "use strict";
 var global = this;
+//fixing API method names
 var requestFileSystem = global.requestFileSystem || global.webkitRequestFileSystem;
 var BlobBuilder = global.BlobBuilder || global.WebKitBlobBuilder;
 var resolveLocalFileSystemURL = global.resolveLocalFileSystemURL || global.webkitResolveLocalFileSystemURL;
@@ -22,7 +23,7 @@ var fs=Object.create({},
     /**
      * Version of the lib
      */
-    version:{value:'0.8.6'},
+    version:{value:'0.8.7'},
     /**
      * Configuration property. Indicates whether to use logging.
      * Default value is <code>false</code> but can be changed.
@@ -105,7 +106,7 @@ var fs=Object.create({},
         value:function(base64String,type)
         {
             var decodedString  = atob(base64String);
-            var dataLength = decodedString .length;
+            var dataLength = decodedString.length;
             var arrayData = new Int8Array(dataLength);
             for(var i = 0; i < dataLength; i++)
             {
