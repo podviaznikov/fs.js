@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>fs.js demo</title>
-    <script src="fs.core.js"></script>
-    <script src="fs.util.js"></script>
-    <script src="fs.io.js"></script>
-    <script src="fs.reader.js"></script>
-    <script src="fs.writer.js"></script>
-    <script src="fs.ext.js"></script>
-    <script src="file.dnd.js"></script>
+    <script src="src/fs.core.js"></script>
+    <script src="src/fs.util.js"></script>
+    <script src="src/fs.io.js"></script>
+    <script src="src/fs.reader.js"></script>
+    <script src="src/fs.writer.js"></script>
+    <script src="src/fs.ext.js"></script>
+    <script src="src/file.dnd.js"></script>
     <script src="zip.js"></script>
     <link href="styles.css" rel="stylesheet">
 </head>
@@ -146,7 +146,7 @@ function test5()
 }
 function test6()
 {
-    fs.io.getFileFromRoot('new_file.txt',function(err,data)
+    fs.util.getFileFromRoot('new_file.txt',function(err,data)
     {
         if(err)
         {
@@ -162,12 +162,12 @@ function test6()
 }
 function test7()
 {
-    fs.write.text('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    fs.write.text('new_file_with_textdsad.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {
             console.log(err);
-            document.getElementById('test7').innerText="Failed with err: "+err.message();
+            document.getElementById('test7').innerText="Failed with err: "+err;
         }
         else
         {
