@@ -7,34 +7,20 @@
 fs.util= Object.create({},{
     // Read utils
     // -----------------
+    // Create reader for the file using file name.
      getReaderUsingFileName:{
         value:function(fileName,callback,readerMethod,options)
         {
-            fs.getNativeFS(function(err,filesystem){
-                if(err){
-                    callback(err);
-                }else{
-                    filesystem.root.getFile(fileName, {}, function(fileEntry){
-                        //we got file
-                        if(fileEntry.isFile === true){
-                            // Get a File object representing the file,
-                            // then use FileReader to read its contents.
-                            fileEntry.file(function(file){
-                                fs.util.getReader(file,callback,readerMethod);
-                            },
-                            //error
-                            function(error){
-                                callback(error);
-                            });
-                         //not file
-                        }else{
-                            callback(fs.FILE_EXPECTED);
-                        }
-                    },
-                    function(error){
-                        callback(error);
-                    });
-                }
+            fs.util.getFileFromRoot(fileName,function(er,fileEntry){
+                // Get a File object representing the file,
+                // then use FileReader to read its contents.
+                fileEntry.file(function(file){
+                    fs.util.getReader(file,callback,readerMethod);
+                },
+                //error
+                function(error){
+                    callback(error);
+                });
             },options);
         }
     },
@@ -54,9 +40,7 @@ fs.util= Object.create({},{
             reader[readerMethod](initialFile);
         }
     },
-
-
-
+    // Read entries from directory
     readEntriesFromDirectory:{
         value:function(directory,callback){
             var directoryReader=directory.createReader();
@@ -102,6 +86,17 @@ fs.util= Object.create({},{
     readAsText:{
         value:function(fileName,callback,options){
             this.getReaderUsingFileName(fileName,callback,'readAsText',options);
+        }
+    },
+    // Remove file from FileSystem.
+    remove:{
+        value:function(filename,callback){
+            fs.io.getFileFromRoot(filename,function(err,fileEntry){
+                //success
+                fileEntry.remove(function(){callback(undefined);},
+                //error
+                function(e){callback(e);});
+            });
         }
     },
     // Write utils
@@ -173,12 +168,16 @@ fs.util= Object.create({},{
                     callback(err);
                 }else{
                     fileEntry.createWriter(function(fileWriter){
+                        // Register handler for `writeend` event.
                         fileWriter.onwriteend = function(){
-                            console.log('File saved to FS');
+                            console.log('writing to file finished.');
+                            // notify caller that file was written to file
                             callback(undefined);
                         };
+                        // Register handler for `error` event.
                         fileWriter.onerror = function(){
-                            console.log('Error writing file:'+this.error);
+                            console.log('Error writing to file:'+this.error);
+                            // notify caller about error
                             callback(this.error);
                         };
                         fileWriter.write(file);
@@ -210,17 +209,6 @@ fs.util= Object.create({},{
     // Destroy file URL.
     destroyFileURL:{
         value:function(url){global.URL.revokeObjectURL(url);}
-    },
-    // Remove file from FileSystem.
-    remove:{
-        value:function(filename,callback){
-            fs.io.getFileFromRoot(filename,function(err,fileEntry){
-                //success
-                fileEntry.remove(function(){callback(undefined);},
-                //error
-                function(e){callback(e);});
-            });
-        }
     }
 
 });
