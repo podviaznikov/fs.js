@@ -1,5 +1,7 @@
-// (c) 2011 Enginimation Studio (http://enginimation.com).
-// fs.js may be freely distributed under the MIT license.
+/* 
+ * (c) 2011 Enginimation Studio (http://enginimation.com).
+ * fs.js may be freely distributed under the MIT license.
+ */ 
 "use strict";
 /**
  * Method shortName for the file will return just name of the file without extension.

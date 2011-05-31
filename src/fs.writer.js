@@ -1,100 +1,53 @@
-// (c) 2011 Enginimation Studio (http://enginimation.com).
-// fs.js may be freely distributed under the MIT license.
+/* 
+ * (c) 2011 Enginimation Studio (http://enginimation.com).
+ * fs.js may be freely distributed under the MIT license.
+ */ 
 "use strict";
+// Module for writing operations with FileSystem, API is stable.
 fs.write = Object.create({},{
-    /**
-     * Method for file object to file in the filesystem.
-     *
-     * @param file - file to be saved on the filesystem.
-     * @param callback - callback with error parameter if something went wrong.
-     * @param fileName - name of the file.
-     */
+    // Write file instance to FileSystem with provided filename.
     file:{
         value:function(file,callback,filename){
             fs.util.writeFileToFile(file,callback,{filename:filename});
         }
     },
-    /**
-     * Method for file object to file in the filesystem.
-     *
-     * @param file - file to be saved on the filesystem.
-     * @param callback - callback with error parameter if something went wrong.
-     * @param fileName - name of the file.
-     */
+    // Write file instance as temporary file to FileSystem with provided filename.
     fileToTmpFile:{
         value:function(file,callback,filename){
             fs.util.writeFileToFile(file,callback,{tmp:true,filename:filename});
         }
     },
-    /**
-     * Method for writing blob to file.
-     *
-     * @param fileName - filename in which data should be written. File will be created.
-     * @param blob - content of the file.
-     * @param callback - callback after execution may contain only one parameter: error.
-     */
+    // Write blob to FileSystem with provided name.
     blob:{
         value:function(fileName,blob,callback){
             fs.util.writeBlobToFile(fileName,blob,callback,{});
         }
     },
-    /**
-     * Method for writing blob to temp file.
-     *
-     * @param fileName - filename in which data should be written. File will be created.
-     * @param blob - content of the file.
-     * @param callback - callback after execution may contain only one parameter: error.
-     */
+    // Write blob as temporary file to FileSystem with provided name.
     blobToTmpFile:{
         value:function(fileName,blob,callback){
             fs.util.writeBlobToFile(fileName,blob,callback,{tmp:true});
         }
     },
-    /**
-     * Method for writing text to the file.
-     *
-     * @param fileName - name of the file. File will be created.
-     * @param text - text (multi line using \r\n) that should be written.
-     * @param callback - callback with error parameter if something went wrong.
-     */
+    // Write text to FileSystem with provided name.
     text:{
         value:function(fileName,text,callback){
             fs.util.writeTextToFile(fileName,text,callback,{});
         }
     },
-    /**
-     * Method for writing text to the temporary file.
-     *
-     * @param fileName - name of the file. File will be created.
-     * @param text - text (multi line using \r\n) that should be written.
-     * @param callback - callback with error parameter if something went wrong.
-     */
+    // Write text as temporary file to FileSystem with provided name.
     textToTmpFile: {
         value:function(fileName,text,callback){
             fs.util.writeTextToFile(fileName,text,callback,{tmp:true});
         }
     },
-    /**
-     * Method for writing base64 encoded string to file.
-     *
-     * @param fileName - name of the file. File will be created.
-     * @param content - encoded string.
-     * @param contentType - content type.
-     * @param callback - callback with error parameter if something went wrong.
-     */
+    // Write base64 string to FileSystem with provided name.
     base64Str:{
         value:function(fileName,content,contentType,callback){
             fs.util.writeBase64StrToFile(fileName,content,contentType,callback,{});
         }
     },
-     /**
-     * Method for writing base64 encoded string to temp file.
-     *
-     * @param fileName - name of the file. File will be created.
-     * @param content - encoded string.
-     * @param contentType - content type.
-     * @param callback - callback with error parameter if something went wrong.
-     */
+    // Write base64 string as temporary file to FileSystem with provided name.
     base64StrToTmpFile:{
         value:function(fileName,content,contentType,callback){
             fs.util.writeBase64StrToFile(fileName,content,contentType,callback,{tmp:true});

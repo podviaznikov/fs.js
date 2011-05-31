@@ -1,184 +1,13 @@
-// (c) 2011 Enginimation Studio (http://enginimation.com).
-// fs.js may be freely distributed under the MIT license.
+/* 
+ * (c) 2011 Enginimation Studio (http://enginimation.com).
+ * fs.js may be freely distributed under the MIT license.
+ */
 "use strict";
+//  Utils module to deal with FileSystem. Some low-level methods.
 fs.util= Object.create({},{
-    /**
-    * Method obtains reader for the file object.
-    * @param file - file object that should be read;
-    * @param callback - method that should be called after reader read the file. Callback has 3 parameters: error(if any), result and initial file.
-    * @param readerHandler - method over the reader that should be executed.
-    */
-    getReader:{
-        value:function(file,callback,readerMethod){
-            var reader = new global.FileReader();
-            var initialFile = file;
-            reader.onloadend = function(e)
-            {
-                //pass read data into the callback
-                callback(undefined,this.result,initialFile);
-            };
-            reader[readerMethod](initialFile);
-        }
-    },
-
-    getFile:{
-        value:function(directory,fileName,callback){
-            //success
-            directory.getFile(fileName,{create:true,exclusive: true}, function(fileEntry){
-                callback(undefined,fileEntry);
-            },
-            //error
-            function(err){
-                callback(err);
-            });
-        }
-    },
-
-    getDirectory:{
-        value:function(directory,directoryName,callback){
-            callback(undefined,directory.getDirectory(directoryName,{create:true}));
-        }
-    },
-
-    getDirectoryFromRoot:{
-        value:function(directoryName,callback,options){
-            fs.getNativeFS(function(err,filesystem){
-                if(err){
-                    callback(err);
-                }else{
-                    fs.util.getDirectory(filesystem.root,directoryName,callback);
-                }
-            },options);
-        }
-    },
-
-    readEntriesFromDirectory:{
-        value:function(directory,callback){
-            var directoryReader=directory.createReader();
-            directoryReader.readEntries(function(entries){
-                callback(undefined,entries);
-            },
-            function(error){
-                callback(error);
-            });
-        }
-    },
-
-    readAsArrayBuffer:{
-        value:function(fileName,callback,options){
-            this.getReaderUsingFileName(fileName,callback,'readAsArrayBuffer',options);
-        }
-    },
-    /**
-     * Method reads content of the file as array buffer.
-     * @param file - file to be read.
-     * @param callback - callback after operation is done. Has 2 parameters: error and array buffer.
-     * Before using array buffer user should check whether error happened.
-     */
-    readFileAsArrayBuffer:{
-        value:function(file,callback){
-            this.getReader(file,callback,'readAsArrayBuffer');
-        }
-    },
-
-    readAsBinaryString:{
-        value:function(fileName,callback,options){
-            this.getReaderUsingFileName(fileName,callback,'readAsBinaryString',options);
-        }
-    },
-
-    /**
-     * Method reads content of the file as binary string.
-     * @param file - file to be read.
-     * @param callback - callback after operation is done. Has 2 parameters: error and binary string.
-     * Before using binary string user should check whether error happened.
-     */
-    readFileAsBinaryString:{
-        value:function(file,callback){
-            this.getReader(file,callback,'readAsBinaryString');
-        }
-    },
-
-    readAsDataUrl:{
-        value:function(fileName,callback,options){
-            this.getReaderUsingFileName(fileName,callback,'readAsDataURL',options);
-        }
-    },
-
-    readAsText:{
-        value:function(fileName,callback,options){
-            this.getReaderUsingFileName(fileName,callback,'readAsText',options);
-        }
-    },
-
-    writeBase64StrToFile:{
-        value:function(fileName,content,contentType,callback,options){
-            var blob = fs.base64StringToBlob(content,contentType);
-            this.writeBlobToFile(fileName,blob,callback,options);
-        }
-    },
-
-    writeBlobToFile:{
-        value:function(fileName,blob,callback,options){
-            this.getFileFromRoot(fileName,function(err,fileEntry){
-                if(err){
-                    callback(err);
-                }else{
-                    fileEntry.createWriter(function(fileWriter){
-                        fileWriter.onwriteend = function(){
-                            console.log('File saved to FS');
-                            callback(undefined);
-                        };
-                        fileWriter.onerror = function(){
-                            console.log('Error writing file:'+this.error);
-                            callback(this.error);
-                        };
-
-                        fileWriter.write(blob);
-                    },function(err){callback(err);});
-                }
-            },options);
-        }
-    },
-
-    writeTextToFile:{
-        value:function(fileName,text,callback,options){
-            var blob = fs.createBlob(text,'text/plain');
-            fs.util.writeBlobToFile(fileName,blob,callback,options);
-        }
-    },
-
-    writeArrayBufferToFile:{
-        value:function(fileName,contentType,arrayBuffer,callback,options){
-            var blob = fs.createBlob(arrayBuffer,contentType);
-            fs.util.writeBlobToFile(fileName,blob,callback,options);
-        }
-    },
-
-    writeFileToFile:{
-        value:function(file,callback,options){
-            var filename = options.filename||file.name;
-            this.getFileFromRoot(filename,function(err,fileEntry){
-                if(err){
-                    callback(err);
-                }else{
-                    fileEntry.createWriter(function(fileWriter){
-                        fileWriter.onwriteend = function(){
-                            console.log('File saved to FS');
-                            callback(undefined);
-                        };
-                        fileWriter.onerror = function(){
-                            console.log('Error writing file:'+this.error);
-                            callback(this.error);
-                        };
-                        fileWriter.write(file);
-                    },function(err){callback(err);});
-                }
-            },options);
-        }
-    },
-
-    getReaderUsingFileName:{
+    // Read utils
+    // -----------------
+     getReaderUsingFileName:{
         value:function(fileName,callback,readerMethod,options)
         {
             fs.getNativeFS(function(err,filesystem){
@@ -202,49 +31,190 @@ fs.util= Object.create({},{
                             callback(fs.FILE_EXPECTED);
                         }
                     },
-                    function(error)
-                    {
+                    function(error){
                         callback(error);
                     });
                 }
             },options);
         }
     },
+    // Create reader for the file.
+    getReader:{
+        value:function(file,callback,readerMethod){
+            //instantiate reader
+            var reader = new global.FileReader(),
+                initialFile = file;
+            //register handler for `loadend` event.
+            reader.onloadend = function()
+            {
+                //pass read data into the callback
+                callback(undefined,this.result,initialFile);
+            };
+            //call one of the `FileReader`'s methods.
+            reader[readerMethod](initialFile);
+        }
+    },
 
-    getFileFromRoot:{
+
+
+    readEntriesFromDirectory:{
+        value:function(directory,callback){
+            var directoryReader=directory.createReader();
+            directoryReader.readEntries(function(entries){
+                callback(undefined,entries);
+            },
+            function(error){
+                callback(error);
+            });
+        }
+    },
+    // Read file as ArrayBuffer.
+    readAsArrayBuffer:{
         value:function(fileName,callback,options){
-            fs.getNativeFS(function(err,filesystem){
+            this.getReaderUsingFileName(fileName,callback,'readAsArrayBuffer',options);
+        }
+    },
+    // Read file as ArrayBuffer.
+    readFileAsArrayBuffer:{
+        value:function(file,callback){
+            this.getReader(file,callback,'readAsArrayBuffer');
+        }
+    },
+    // Read file as binary string.
+    readAsBinaryString:{
+        value:function(fileName,callback,options){
+            this.getReaderUsingFileName(fileName,callback,'readAsBinaryString',options);
+        }
+    },
+    // Read file as binary string.
+    readFileAsBinaryString:{
+        value:function(file,callback){
+            this.getReader(file,callback,'readAsBinaryString');
+        }
+    },
+    // Read file as data url.
+    readAsDataUrl:{
+        value:function(fileName,callback,options){
+            this.getReaderUsingFileName(fileName,callback,'readAsDataURL',options);
+        }
+    },
+    // Read file as text.
+    readAsText:{
+        value:function(fileName,callback,options){
+            this.getReaderUsingFileName(fileName,callback,'readAsText',options);
+        }
+    },
+    // Write utils
+    // -----------------
+    // Write base64String to file.
+    writeBase64StrToFile:{
+        value:function(fileName,content,contentType,callback,options){
+            // Create blob from base64 string.
+            var blob = fs.base64StringToBlob(content,contentType);
+            // Write blob to file.
+            this.writeBlobToFile(fileName,blob,callback,options);
+        }
+    },
+    // Write blob to file.
+    writeBlobToFile:{
+        value:function(fileName,blob,callback,options){
+            // Get reference to file or create new one.
+            fs.io.getFileFromRoot(fileName,function(err,fileEntry){
                 if(err){
+                    // Handle error with specified callback.
                     callback(err);
                 }else{
-                    fs.util.getFile(filesystem.root,fileName,callback);
+                    // Create writer.
+                    fileEntry.createWriter(function(fileWriter){
+                        // Register handler for `writeend` event.
+                        fileWriter.onwriteend = function(){
+                            console.log('writing to file finished.');
+                            // notify caller that blob was written to file
+                            callback(undefined);
+                        };
+                        // Register handler for `error` event.
+                        fileWriter.onerror = function(){
+                            console.log('Error writing to file:'+this.error);
+                            // notify caller about error
+                            callback(this.error);
+                        };
+                        // write blob to file
+                        fileWriter.write(blob);
+                    },
+                    // error during file writer creation
+                    function(err){callback(err);});
                 }
             },options);
         }
     },
-
+    // Write text to file.
+    writeTextToFile:{
+        value:function(fileName,text,callback,options){
+            var blob = fs.createBlob(text,'text/plain');
+            fs.util.writeBlobToFile(fileName,blob,callback,options);
+        }
+    },
+    // Write ArrayBuffer to file.
+    writeArrayBufferToFile:{
+        value:function(fileName,contentType,arrayBuffer,callback,options){
+            var blob = fs.createBlob(arrayBuffer,contentType);
+            fs.util.writeBlobToFile(fileName,blob,callback,options);
+        }
+    },
+    // Write file to file.
+    writeFileToFile:{
+        value:function(file,callback,options){
+            // name of the file from options or from initial file.
+            var filename = options.filename||file.name;
+            // Get reference top file or create new.
+            fs.io.getFileFromRoot(filename,function(err,fileEntry){
+                if(err){
+                    //
+                    callback(err);
+                }else{
+                    fileEntry.createWriter(function(fileWriter){
+                        fileWriter.onwriteend = function(){
+                            console.log('File saved to FS');
+                            callback(undefined);
+                        };
+                        fileWriter.onerror = function(){
+                            console.log('Error writing file:'+this.error);
+                            callback(this.error);
+                        };
+                        fileWriter.write(file);
+                    },function(err){callback(err);});
+                }
+            },options);
+        }
+    },
+   
+    // URLs
+    // -----------------
+    // Create file URL.
     createFileURL:{
         value:function(filename,callback){
-            fs.util.getFileFromRoot(filename,function(er,fileEntry){
+            fs.io.getFileFromRoot(filename,function(er,fileEntry){
                 if(er){
-                    //todo add first param to callback
+                    //notify caller about error
+                    callback(er);
                 }else{
                     fileEntry.file(function(file){
-                        var url=fsURL.createObjectURL(file);
-                        //should be second param in callback
-                        callback(url);
+                        var url=global.URL.createObjectURL(file);
+                        //notify caller about success.
+                        callback(undefined,url);
                     });
                 }
             });
         }
     },
+    // Destroy file URL.
     destroyFileURL:{
-        value:function(url){fsURL.revokeObjectURL(url);}
+        value:function(url){global.URL.revokeObjectURL(url);}
     },
-
+    // Remove file from FileSystem.
     remove:{
         value:function(filename,callback){
-            this.getFileFromRoot(filename,function(err,fileEntry){
+            fs.io.getFileFromRoot(filename,function(err,fileEntry){
                 //success
                 fileEntry.remove(function(){callback(undefined);},
                 //error

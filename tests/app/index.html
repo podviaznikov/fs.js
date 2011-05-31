@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>fs.js demo</title>
+    <script src="../src/fs.core.js"></script>
+    <script src="../src/fs.util.js"></script>
+    <script src="../src/fs.io.js"></script>
+    <script src="../src/fs.reader.js"></script>
+    <script src="../src/fs.writer.js"></script>
+    <script src="../src/fs.ext.js"></script>
+    <script src="../src/file.dnd.js"></script>
+    <script src="zip.js"></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<input type="file" id="myfile" multiple />
+<script>
+   function errorHandler(er)
+    {
+        alert('error');
+    };
+  document.getElementById('myfile').onchange = function(e) {
+  var files = this.files;
+
+  window.requestFileSystem(window.PERSISTENT, 100*1024*1024, function(fs) {
+    // Duplicate each file the user selected to the app's fs.
+    for (var i = 0, file; file = files[i]; ++i) {
+
+      // Capture current iteration's file in local scope for the getFile() callback.
+      (function(f) {
+        fs.root.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
+            console.log('writer creation');
+            fileEntry.createWriter(function(fileWriter) {
+    console.log('writer created');
+            fileWriter.write(f); // Note: write() can take a File or Blob object.
+          }, errorHandler);
+        }, errorHandler);
+      })(file);
+
+    }
+  }, errorHandler);
+
+};
+</script>
+
+<section>
+    <div id="drop_zone">Drop text files here</div>
+    <div id="total_size"></div>
+    <output id="list"></output>
+
+    <ul>
+        <li><p class="test-name">Read file as dataURL:</p><button onclick="test1();">Run</button><p id="test1"></p></li>
+        <li><p class="test-name">Read file as text:</p><button onclick="test2();">Run</button><p id="test2"></p></li>
+        <li><p class="test-name">Read file as binary string:</p><button onclick="test3();">Run</button><p id="test3"></p></li>
+        <li><p class="test-name">Read file as buffer array:</p><button onclick="test4();">Run</button><p id="test4"></p></li>
+        <li><p class="test-name">Read file that doesn't exists:</p><button onclick="test5();">Run</button><p id="test5"></p></li>
+        <li><p class="test-name">Create file:</p><button onclick="test6();">Run</button><p id="test6"></p></li>
+        <li><p class="test-name">Write text to file:</p><button onclick="test7();">Run</button><p id="test7"></p></li>
+        <li><p class="test-name">Write dataURL to file:</p><button onclick="test8();">Run</button><p id="test8"></p></li>
+        <li><p class="test-name">Read directory:</p><button onclick="test9();">Run</button><p id="test9"></p></li>
+    </ul>
+</section>
+<script>
+function handleFileSelect(files)
+{
+    var output = [];
+    var size = 0;
+    for (var i = 0, f; f = files[i]; i++)
+    {
+//        if (!f.type==='text/plain')
+//        {
+//            continue;
+//        }
+
+        size+=f.size;
+        f.number=i;
+        //output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
+        fs.write.file(f,function(er){},'x.txt');
+
+        fs.read.fileAsText(f,function(err,data)
+        {
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                var x=zip_inflate(data);
+                console.log(x);
+                console.log(data);
+            }            
+        });
+
+        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+    }
+}
+// Setup drag and drop zone
+var dropZone = new FileDropZone('drop_zone',handleFileSelect);    
+function test1()
+{
+    fs.read.asDataUrl('test.zip',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test1').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test1').innerText="Done: "+data;
+        }
+    });
+}
+function test2()
+{
+    fs.read.asText('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test2').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test2').innerText="Done: "+data;
+        }
+    });
+}
+function test3()
+{
+    fs.read.asBinaryString('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test3').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test3').innerText="Done: "+data;
+        }
+    });
+}
+function test4()
+{
+    fs.read.asArrayBuffer('test.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test4').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test4').innerText="Done: "+data;
+        }
+    });
+}
+function test5()
+{
+    fs.read.asText('fake.file',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test5').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test5').innerText="Done: "+data;
+        }
+    });
+}
+function test6()
+{
+    fs.io.getFileFromRoot('new_file.txt',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test6').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test6').innerText="Done: "+data.name;
+        }
+    });
+}
+function test7()
+{
+    fs.write.text('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test7').innerText="Failed with err: "+err;
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test7').innerText="Done";
+        }
+    });
+}
+function test8()
+{
+    var content='UEsDBBQAAAAIAJp9Pj7t9B2+DQAAAA4AAAAIAAAAdGVzdC50eHTzycxLVTDk5fIB0UYAUEsBAhQAFAAAAAgAmn0+Pu30Hb4NAAAADgAAAAgAAAAAAAAAAQAgAAAAAAAAAHRlc3QudHh0UEsFBgAAAAABAAEANgAAADMAAAAAAA==';
+    fs.write.base64Str('base64.zip',content,'application/zip',function(err,data)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test8').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(data);
+            document.getElementById('test8').innerText="Done";
+        }
+    });
+}
+
+function test9()
+{
+    fs.io.readRootDirectory(function(err,entries)
+    {
+        if(err)
+        {
+            console.log(err);
+            document.getElementById('test9').innerText="Failed with err: "+err.message();
+        }
+        else
+        {
+            console.log(entries);
+            var output=[];
+            for(var i=0;i<entries.length;i++)
+            {
+                var entry=entries[i];
+                output.push('<li><strong>', entry.name, '</strong>', ' - ',entry.size,'</li>');
+            }
+            document.getElementById('test9').innerHTML = '<ul>' + output.join('') + '</ul>';
+        }
+    });
+}
+</script>
+</body>
+</html>
