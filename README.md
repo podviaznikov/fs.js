@@ -1,7 +1,7 @@
 # fs.js - FileSystem JavaScript wrapper
 fs.js - is simple wrapper for dealing with HTML(5) File API (http://dev.w3.org/2006/webapi/FileAPI/) and filesystem itself.
 Idea of the project is to simplify standard API. There is no aim to support this in all versions of all browsers.
-Current version of library is 0.8.7. Version indicates approximate amount of original API covered. 1.0 would mean that all
+Current version of library is 0.9. Version indicates approximate amount of original API covered. 1.0 would mean that all
 methods are supported.
 
 ## Rules
@@ -75,13 +75,13 @@ To use this functionality please include fs.ext.js.
 
 ## Feedback
 I would like to here any feedback from you. If you miss some functionality or have questions how this stuff can be used
-you are welcome to write me on podviaznikov@gmail.com. I like emails!
+you are welcome to write me on anton.podviaznikov@enginimation.com. I like emails!
 
 ## License
 
 (The MIT License)
 
-Copyright (c) 2011 Anton Podviaznikov <podviaznikov@gmail.com>
+Copyright (c) 2011 Anton Podviaznikov <anton.podviaznikov@enginimation.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

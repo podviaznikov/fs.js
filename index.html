@@ -13,6 +13,36 @@
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
+<input type="file" id="myfile" multiple />
+<script>
+   function errorHandler(er)
+    {
+        alert('error');
+    };
+  document.getElementById('myfile').onchange = function(e) {
+  var files = this.files;
+
+  window.requestFileSystem(window.PERSISTENT, 100*1024*1024, function(fs) {
+    // Duplicate each file the user selected to the app's fs.
+    for (var i = 0, file; file = files[i]; ++i) {
+
+      // Capture current iteration's file in local scope for the getFile() callback.
+      (function(f) {
+        fs.root.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
+            console.log('writer creation');
+            fileEntry.createWriter(function(fileWriter) {
+    console.log('writer created');
+            fileWriter.write(f); // Note: write() can take a File or Blob object.
+          }, errorHandler);
+        }, errorHandler);
+      })(file);
+
+    }
+  }, errorHandler);
+
+};
+</script>
+
 <section>
     <div id="drop_zone">Drop text files here</div>
     <div id="total_size"></div>
@@ -45,6 +75,8 @@ function handleFileSelect(files)
         size+=f.size;
         f.number=i;
         //output.push('<li id="'+f.shortName()+'"><strong>', f.name, '</strong>', ' - ',f.size,'</li>');
+        fs.write.file(f,function(er){},'x.txt');
+
         fs.read.fileAsText(f,function(err,data)
         {
             if(err)
@@ -162,7 +194,7 @@ function test6()
 }
 function test7()
 {
-    fs.write.text('new_file_with_textdsad.txt','Line1\r\nLine2',function(err,data)
+    fs.write.text('new_file_with_text.txt','Line1\r\nLine2',function(err,data)
     {
         if(err)
         {

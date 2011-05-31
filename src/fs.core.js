@@ -86,7 +86,7 @@ fs=Object.create({},{
                 arrayData = new global.Int8Array(dataLength),
                 i=0;
             for(i = 0; i < dataLength; i++){
-                arrayData[i] = decodedString .charCodeAt(i);
+                arrayData[i] = decodedString.charCodeAt(i);
             }
             return this.createBlob(arrayData.buffer,type);
         }

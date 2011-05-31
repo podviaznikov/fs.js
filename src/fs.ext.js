@@ -67,7 +67,7 @@ Object.defineProperty(global.File.prototype,
  * @return message description for the standard error codes.
  * @see http://www.w3.org/TR/FileAPI/#dfn-fileerror
  */
- //todo check this http://dev.w3.org/2009/dap/file-system/file-writer.html!!
+ //todo check this http://dev.w3.org/2009/dap/file-system/file-writer.html!! and http://dev.w3.org/2009/dap/file-system/file-dir-sys.html#the-fileerror-interface
 Object.defineProperty(global.FileError.prototype,
 'message',{
     value:function(){

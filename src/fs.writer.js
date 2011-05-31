@@ -23,7 +23,7 @@ fs.write = Object.create({},{
      */
     fileToTmpFile:{
         value:function(file,callback,filename){
-            fs.util.writeFileToFile(file,callback,{tmp:true});
+            fs.util.writeFileToFile(file,callback,{tmp:true,filename:filename});
         }
     },
     /**

@@ -24,7 +24,7 @@ fs.util= Object.create({},{
     getFile:{
         value:function(directory,fileName,callback){
             //success
-            directory.getFile(fileName,{create:true}, function(fileEntry){
+            directory.getFile(fileName,{create:true,exclusive: true}, function(fileEntry){
                 callback(undefined,fileEntry);
             },
             //error
@@ -125,17 +125,14 @@ fs.util= Object.create({},{
                     callback(err);
                 }else{
                     fileEntry.createWriter(function(fileWriter){
-                        console.log(blob);
-                        console.log(fileWriter);
-                        fileWriter.onwrite = function(e){
-                            console.log('DONE');
-                            console.log(e);
-                            if(!e.loaded && e.loaded!=0){
-                                callback(undefined);
-                            }
+                        fileWriter.onwriteend = function(){
+                            console.log('File saved to FS');
+                            callback(undefined);
                         };
-                        //fileWriter.onprogress = function(){/*do nothing*/};
-                        fileWriter.onerror = function(e){callback(e);};
+                        fileWriter.onerror = function(){
+                            console.log('Error writing file:'+this.error);
+                            callback(this.error);
+                        };
 
                         fileWriter.write(blob);
                     },function(err){callback(err);});
@@ -152,8 +149,7 @@ fs.util= Object.create({},{
     },
 
     writeArrayBufferToFile:{
-        value:function(fileName,contentType,arrayBuffer,callback,options)
-        {
+        value:function(fileName,contentType,arrayBuffer,callback,options){
             var blob = fs.createBlob(arrayBuffer,contentType);
             fs.util.writeBlobToFile(fileName,blob,callback,options);
         }
@@ -161,14 +157,24 @@ fs.util= Object.create({},{
 
     writeFileToFile:{
         value:function(file,callback,options){
-            this.readFileAsArrayBuffer(file,function(err,arrayBuffer,initialFile){
-                if(err){//error
+            var filename = options.filename||file.name;
+            this.getFileFromRoot(filename,function(err,fileEntry){
+                if(err){
                     callback(err);
-                }else{//success
-                    var filename = options.filename||initialFile.name;
-                    fs.util.writeArrayBufferToFile(filename,file.type,arrayBuffer,callback,options);
+                }else{
+                    fileEntry.createWriter(function(fileWriter){
+                        fileWriter.onwriteend = function(){
+                            console.log('File saved to FS');
+                            callback(undefined);
+                        };
+                        fileWriter.onerror = function(){
+                            console.log('Error writing file:'+this.error);
+                            callback(this.error);
+                        };
+                        fileWriter.write(file);
+                    },function(err){callback(err);});
                 }
-            });
+            },options);
         }
     },
 
@@ -220,10 +226,15 @@ fs.util= Object.create({},{
     createFileURL:{
         value:function(filename,callback){
             fs.util.getFileFromRoot(filename,function(er,fileEntry){
-                fileEntry.file(function(file){
-                    var url=fsURL.createObjectURL(file);
-                    callback(url);
-                });
+                if(er){
+                    //todo add first param to callback
+                }else{
+                    fileEntry.file(function(file){
+                        var url=fsURL.createObjectURL(file);
+                        //should be second param in callback
+                        callback(url);
+                    });
+                }
             });
         }
     },
