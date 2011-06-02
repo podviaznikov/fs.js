@@ -1,7 +1,3 @@
-/* 
- * (c) 2011 Enginimation Studio (http://enginimation.com).
- * fs.js may be freely distributed under the MIT license.
- */ 
 "use strict";
 //Module for reading operations for FileSystem, API is stable.
 fs.read = Object.create({},{

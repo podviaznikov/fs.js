@@ -1,7 +1,3 @@
-/* 
- * (c) 2011 Enginimation Studio (http://enginimation.com).
- * fs.js may be freely distributed under the MIT license.
- */
 "use strict";
 //  Utils module to deal with FileSystem. Some low-level methods.
 fs.util= Object.create({},{

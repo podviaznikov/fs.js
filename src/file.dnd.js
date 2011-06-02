@@ -1,5 +1,3 @@
-// (c) 2011 Enginimation Studio (http://enginimation.com).
-// fs.js may be freely distributed under the MIT license.
 "use strict";
 var FileDropZone = function(id,filesHandler)
 {

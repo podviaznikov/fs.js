@@ -1,7 +1,3 @@
-/* 
- * (c) 2011 Enginimation Studio (http://enginimation.com).
- * fs.js may be freely distributed under the MIT license.
- */ 
 "use strict";
 //Define io module for dealing with FileSystem
 fs.io = Object.create({},{
