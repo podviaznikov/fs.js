@@ -197,7 +197,7 @@ fs.io = Object.create({},{
     getFile:{
         value:function(directory,fileName,callback){
             //success
-            directory.getFile(fileName,{create:false}, function(fileEntry){
+            directory.getFile(fileName,{create:true}, function(fileEntry){
                 callback(undefined,fileEntry);
             },
             //error
@@ -213,7 +213,7 @@ fs.io = Object.create({},{
                 if(err){
                     callback(err);
                 }else{
-                    fs.util.getFile(filesystem.root,fileName,callback);
+                    fs.io.getFile(filesystem.root,fileName,callback);
                 }
             },options);
         }
@@ -283,7 +283,7 @@ fs.util= Object.create({},{
      getReaderUsingFileName:{
         value:function(fileName,callback,readerMethod,options)
         {
-            fs.util.getFileFromRoot(fileName,function(er,fileEntry){
+            fs.io.getFileFromRoot(fileName,function(er,fileEntry){
                 // Get a File object representing the file,
                 // then use FileReader to read its contents.
                 fileEntry.file(function(file){

@@ -7,7 +7,7 @@ fs.io = Object.create({},{
     getFile:{
         value:function(directory,fileName,callback){
             //success
-            directory.getFile(fileName,{create:false}, function(fileEntry){
+            directory.getFile(fileName,{create:true}, function(fileEntry){
                 callback(undefined,fileEntry);
             },
             //error
@@ -23,7 +23,7 @@ fs.io = Object.create({},{
                 if(err){
                     callback(err);
                 }else{
-                    fs.util.getFile(filesystem.root,fileName,callback);
+                    fs.io.getFile(filesystem.root,fileName,callback);
                 }
             },options);
         }

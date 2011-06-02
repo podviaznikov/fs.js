@@ -7,7 +7,7 @@ fs.util= Object.create({},{
      getReaderUsingFileName:{
         value:function(fileName,callback,readerMethod,options)
         {
-            fs.util.getFileFromRoot(fileName,function(er,fileEntry){
+            fs.io.getFileFromRoot(fileName,function(er,fileEntry){
                 // Get a File object representing the file,
                 // then use FileReader to read its contents.
                 fileEntry.file(function(file){

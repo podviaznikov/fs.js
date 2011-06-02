@@ -2,7 +2,7 @@
 
 # project name (from the root folder)
 copyright = '(c) 2011 Enginimation Studio (http://enginimation.com). may be freely distributed under the MIT license.'
-max_js = 'build/fs.js.js'
+max_js = 'build/fs.js'
 min_js = 'build/fs.js.min.js'
 
 # file list (from the root/src folder)
