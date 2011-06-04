@@ -1,4 +1,4 @@
-/**(c) 2011 Enginimation Studio (http://enginimation.com). may be freely distributed under the MIT license.*/
+/**(c) 2011 Enginimation Studio (http://enginimation.com). May be freely distributed under the MIT license.*/
 "use strict";
 var global = this,fs;
 // Fixing API method names
