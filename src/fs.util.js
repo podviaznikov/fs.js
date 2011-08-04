@@ -1,12 +1,10 @@
-"use strict";
 //  Utils module to deal with FileSystem. Some low-level methods.
 fs.util= Object.create({},{
     // Read utils
     // -----------------
     // Create reader for the file using file name.
      getReaderUsingFileName:{
-        value:function(fileName,callback,readerMethod,options)
-        {
+        value:function(fileName,callback,readerMethod,options){
             fs.io.getFileFromRoot(fileName,function(er,fileEntry){
                 // Get a File object representing the file,
                 // then use FileReader to read its contents.
@@ -27,8 +25,7 @@ fs.util= Object.create({},{
             var reader = new global.FileReader(),
                 initialFile = file;
             //register handler for `loadend` event.
-            reader.onloadend = function()
-            {
+            reader.onloadend = function(){
                 //pass read data into the callback
                 callback(undefined,this.result,initialFile);
             };
@@ -114,7 +111,8 @@ fs.util= Object.create({},{
                 if(err){
                     // Handle error with specified callback.
                     callback(err);
-                }else{
+                }
+                else{
                     // Create writer.
                     fileEntry.createWriter(function(fileWriter){
                         // Register handler for `writeend` event.
@@ -162,7 +160,8 @@ fs.util= Object.create({},{
                 if(err){
                     //
                     callback(err);
-                }else{
+                }
+                else{
                     fileEntry.createWriter(function(fileWriter){
                         // Register handler for `writeend` event.
                         fileWriter.onwriteend = function(){
@@ -185,14 +184,15 @@ fs.util= Object.create({},{
    
     // URLs
     // -----------------
-    // Create file URL.
-    createFileURL:{
+    // Create object URL.
+    createObjectURL:{
         value:function(filename,callback){
             fs.io.getFileFromRoot(filename,function(er,fileEntry){
                 if(er){
                     //notify caller about error
                     callback(er);
-                }else{
+                }
+                else{
                     fileEntry.file(function(file){
                         var url=global.URL.createObjectURL(file);
                         //notify caller about success.
@@ -202,9 +202,24 @@ fs.util= Object.create({},{
             });
         }
     },
-    // Destroy file URL.
-    destroyFileURL:{
+    // Destroy object URL.
+    destroyObjectURL:{
         value:function(url){global.URL.revokeObjectURL(url);}
-    }
-
+    },
+    // Get file URL
+    getFileURL:{
+        value:function(filename,callback){
+            fs.io.getFileFromRoot(filename,function(er,fileEntry){
+                if(er){
+                    //notify caller about error
+                    callback(er);
+                }
+                else{
+                    var url=fileEntry.toURL();
+                    //notify caller about success.
+                    callback(undefined,url);
+                }
+            });
+        }
+    },
 });

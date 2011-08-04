@@ -1,4 +1,3 @@
-"use strict";
 //Module for reading operations for FileSystem, API is stable.
 fs.read = Object.create({},{
     // Read file as dataURL.

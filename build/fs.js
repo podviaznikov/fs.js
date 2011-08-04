@@ -9,7 +9,7 @@ global.URL = global.URL || global.webkitURL;
 //Creating entry point for the library.
 fs=Object.create({},{
     // Current version of the library.
-    version:{value:'0.9'},
+    version:{value:'0.9.1'},
     // Configuration property. Indicates whether to use logging.
     // Default value is `false` but can be changed.
     log:{value:false,writable:true},
@@ -46,7 +46,8 @@ fs=Object.create({},{
                 function(err){
                     callback(err);
                 });
-            }else{
+            }
+            else{
                 //browser not support and not expose FileSystem
                 callback(fs.BROWSER_NOT_SUPPORTED);
             }
@@ -70,7 +71,7 @@ fs=Object.create({},{
     base64StringToBlob:{
         value:function(base64String,type){
             //decode string
-            var decodedString  = global.atob(base64String),
+            var decodedString = global.atob(base64String),
                 dataLength = decodedString.length,
                 arrayData = new global.Int8Array(dataLength),
                 i = 0;
@@ -81,8 +82,6 @@ fs=Object.create({},{
         }
     }
 });
-
-"use strict";
 /**
  * Method shortName for the file will return just name of the file without extension.
  *
@@ -127,8 +126,7 @@ Object.defineProperty(global.File.prototype,
  */
 Object.defineProperty(global.File.prototype,
 'sizeInMB',{
-    value:function()
-    {
+    value:function(){
          return (this.size/(1024*1014)).toFixed(1);
     }
 });
@@ -188,7 +186,6 @@ Object.defineProperty(global.FileError.prototype,
     }
 });
 
-"use strict";
 //Define io module for dealing with FileSystem
 fs.io = Object.create({},{
     // Files
@@ -212,7 +209,8 @@ fs.io = Object.create({},{
             fs.getNativeFS(function(err,filesystem){
                 if(err){
                     callback(err);
-                }else{
+                }
+                else{
                     fs.io.getFile(filesystem.root,fileName,callback);
                 }
             },options);
@@ -272,17 +270,13 @@ fs.io = Object.create({},{
         }
     },
 });
-
-
-"use strict";
 //  Utils module to deal with FileSystem. Some low-level methods.
 fs.util= Object.create({},{
     // Read utils
     // -----------------
     // Create reader for the file using file name.
      getReaderUsingFileName:{
-        value:function(fileName,callback,readerMethod,options)
-        {
+        value:function(fileName,callback,readerMethod,options){
             fs.io.getFileFromRoot(fileName,function(er,fileEntry){
                 // Get a File object representing the file,
                 // then use FileReader to read its contents.
@@ -303,8 +297,7 @@ fs.util= Object.create({},{
             var reader = new global.FileReader(),
                 initialFile = file;
             //register handler for `loadend` event.
-            reader.onloadend = function()
-            {
+            reader.onloadend = function(){
                 //pass read data into the callback
                 callback(undefined,this.result,initialFile);
             };
@@ -390,7 +383,8 @@ fs.util= Object.create({},{
                 if(err){
                     // Handle error with specified callback.
                     callback(err);
-                }else{
+                }
+                else{
                     // Create writer.
                     fileEntry.createWriter(function(fileWriter){
                         // Register handler for `writeend` event.
@@ -438,7 +432,8 @@ fs.util= Object.create({},{
                 if(err){
                     //
                     callback(err);
-                }else{
+                }
+                else{
                     fileEntry.createWriter(function(fileWriter){
                         // Register handler for `writeend` event.
                         fileWriter.onwriteend = function(){
@@ -461,14 +456,15 @@ fs.util= Object.create({},{
    
     // URLs
     // -----------------
-    // Create file URL.
-    createFileURL:{
+    // Create object URL.
+    createObjectURL:{
         value:function(filename,callback){
             fs.io.getFileFromRoot(filename,function(er,fileEntry){
                 if(er){
                     //notify caller about error
                     callback(er);
-                }else{
+                }
+                else{
                     fileEntry.file(function(file){
                         var url=global.URL.createObjectURL(file);
                         //notify caller about success.
@@ -478,14 +474,27 @@ fs.util= Object.create({},{
             });
         }
     },
-    // Destroy file URL.
-    destroyFileURL:{
+    // Destroy object URL.
+    destroyObjectURL:{
         value:function(url){global.URL.revokeObjectURL(url);}
-    }
-
+    },
+    // Get file URL
+    getFileURL:{
+        value:function(filename,callback){
+            fs.io.getFileFromRoot(filename,function(er,fileEntry){
+                if(er){
+                    //notify caller about error
+                    callback(er);
+                }
+                else{
+                    var url=fileEntry.toURL();
+                    //notify caller about success.
+                    callback(undefined,url);
+                }
+            });
+        }
+    },
 });
-
-"use strict";
 //Module for reading operations for FileSystem, API is stable.
 fs.read = Object.create({},{
     // Read file as dataURL.
@@ -561,7 +570,6 @@ fs.read = Object.create({},{
         }
     }
 });
-"use strict";
 // Module for writing operations with FileSystem, API is stable.
 fs.write = Object.create({},{
     // Write file instance to FileSystem with provided filename.
@@ -613,4 +621,3 @@ fs.write = Object.create({},{
         }
     }
 });
-

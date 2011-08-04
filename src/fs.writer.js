@@ -1,4 +1,3 @@
-"use strict";
 // Module for writing operations with FileSystem, API is stable.
 fs.write = Object.create({},{
     // Write file instance to FileSystem with provided filename.
@@ -50,4 +49,3 @@ fs.write = Object.create({},{
         }
     }
 });
-

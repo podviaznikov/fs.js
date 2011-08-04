@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Method shortName for the file will return just name of the file without extension.
  *
@@ -43,8 +42,7 @@ Object.defineProperty(global.File.prototype,
  */
 Object.defineProperty(global.File.prototype,
 'sizeInMB',{
-    value:function()
-    {
+    value:function(){
          return (this.size/(1024*1014)).toFixed(1);
     }
 });

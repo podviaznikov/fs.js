@@ -8,7 +8,7 @@ global.URL = global.URL || global.webkitURL;
 //Creating entry point for the library.
 fs=Object.create({},{
     // Current version of the library.
-    version:{value:'0.9'},
+    version:{value:'0.9.1'},
     // Configuration property. Indicates whether to use logging.
     // Default value is `false` but can be changed.
     log:{value:false,writable:true},
@@ -45,7 +45,8 @@ fs=Object.create({},{
                 function(err){
                     callback(err);
                 });
-            }else{
+            }
+            else{
                 //browser not support and not expose FileSystem
                 callback(fs.BROWSER_NOT_SUPPORTED);
             }
@@ -69,7 +70,7 @@ fs=Object.create({},{
     base64StringToBlob:{
         value:function(base64String,type){
             //decode string
-            var decodedString  = global.atob(base64String),
+            var decodedString = global.atob(base64String),
                 dataLength = decodedString.length,
                 arrayData = new global.Int8Array(dataLength),
                 i = 0;

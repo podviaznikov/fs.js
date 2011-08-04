@@ -1,4 +1,3 @@
-"use strict";
 //Define io module for dealing with FileSystem
 fs.io = Object.create({},{
     // Files
@@ -22,7 +21,8 @@ fs.io = Object.create({},{
             fs.getNativeFS(function(err,filesystem){
                 if(err){
                     callback(err);
-                }else{
+                }
+                else{
                     fs.io.getFile(filesystem.root,fileName,callback);
                 }
             },options);
@@ -82,4 +82,3 @@ fs.io = Object.create({},{
         }
     },
 });
-
