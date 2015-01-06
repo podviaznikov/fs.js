@@ -75,13 +75,13 @@ To use this functionality please include fs.ext.js.
 
 ## Feedback
 I would like to here any feedback from you. If you miss some functionality or have questions how this stuff can be used
-you are welcome to write me on anton.podviaznikov@enginimation.com. I like emails!
+you are welcome to write me on anton@podviaznikov.com. I like emails!
 
 ## License
 
 (The MIT License)
 
-Copyright (c) 2011 Anton Podviaznikov <anton.podviaznikov@enginimation.com>
+Copyright (c) 2011-2015 Anton Podviaznikov <anton@podviaznikov.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
